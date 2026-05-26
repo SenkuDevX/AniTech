@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AniTech OS - Command Palette</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#ffdad6",
+                    "primary": "#bec6e0",
+                    "azure-blue": "#3B82F6",
+                    "surface-container-lowest": "#040e1f",
+                    "tertiary": "#2fd9f4",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "surface-container-high": "#1f2a3c",
+                    "surface-variant": "#2a3548",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-container-low": "#111c2d",
+                    "secondary": "#b9c7e0",
+                    "on-primary-container": "#798098",
+                    "background": "#081425",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary-fixed-dim": "#2fd9f4",
+                    "inverse-primary": "#565e74",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-tertiary-fixed": "#001f25",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-surface-variant": "#c6c6cd",
+                    "on-tertiary-container": "#008ea1",
+                    "on-secondary": "#233144",
+                    "surface-tint": "#bec6e0",
+                    "primary-container": "#0f172a",
+                    "on-surface": "#d8e3fb",
+                    "tertiary-fixed": "#a2eeff",
+                    "tertiary-container": "#001b20",
+                    "surface-dim": "#081425",
+                    "surface-container-highest": "#2a3548",
+                    "on-primary": "#283044",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "soft-violet": "#A78BFA",
+                    "on-secondary-container": "#abb9d2",
+                    "inverse-on-surface": "#263143",
+                    "surface-container": "#152031",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "subtle-magenta": "#D946EF",
+                    "error-container": "#93000a",
+                    "muted-charcoal": "#0F172A",
+                    "deep-indigo": "#312E81",
+                    "electric-cyan": "#22D3EE",
+                    "surface-bright": "#2f3a4c",
+                    "on-error": "#690005",
+                    "on-background": "#d8e3fb",
+                    "error": "#ffb4ab",
+                    "pale-gold": "#FDE68A",
+                    "outline-variant": "#45464d",
+                    "on-tertiary-fixed-variant": "#004e5a",
+                    "secondary-container": "#3c4a5e",
+                    "surface": "#081425",
+                    "outline": "#909097",
+                    "on-primary-fixed": "#131b2e",
+                    "inverse-surface": "#d8e3fb",
+                    "on-tertiary": "#00363e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "sidebar-width": "260px",
+                    "content-margin": "40px",
+                    "sidebar-collapsed": "80px",
+                    "grid-unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Sora"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "metadata": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Sora"],
+                    "display-xl": ["Sora"],
+                    "display-xl-mobile": ["Sora"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "metadata": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "display-xl-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>body {
+    background-color: #081425
+    }
+.ambient-shadow {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5)
+    }
+.glass-panel {
+    background-color: rgba(17, 28, 45, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05)
+    }
+/* Custom Scrollbar for results */
+::-webkit-scrollbar {
+    width: 6px
+    }
+::-webkit-scrollbar-track {
+    background: transparent
+    }
+::-webkit-scrollbar-thumb {
+    background: rgba(198, 198, 205, 0.2);
+    border-radius: 10px
+    }
+.bg-cinematic {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCtKiNNU-RZ9kSwgMXcFkS-usWEPoMX22Mp9uc6MKbvNnI6XnKtQwYr9EQlh--9OkJQoJQbob5D3IDH289dMkVa8t_WeaLkusN_-QHTxyDlwIFm8gxEqRiGiSQtMKwJa8H3I8dw5ubxQlEtBu613ZZP8f4IoogFPIk70nOlw3yaWPIE4WT_8UT7NpgWxrMK8CDmn5We-a1GTWZgVhI99lLftDCSYYpfQvKcgCWUQe8hXUw_2Bdd6vzGXFvaAlsu8Qw10II_0vRd8Jo);
+    background-size: cover;
+    background-position: center
+    }</style>
+</head>
+<body class="text-on-surface antialiased overflow-hidden flex items-center justify-center min-h-screen">
+<!-- Cinematic Blurred Background -->
+<div class="fixed inset-0 z-0 bg-cinematic bg-cover bg-center" data-alt="A cinematic, wide-angle atmospheric shot of a futuristic cyberpunk city at night, viewed from a high vantage point. The scene is bathed in deep indigo and dark navy tones, with distant electric cyan and soft violet neon lights piercing through a subtle, glowing mist. The mood is immersive, moody, and premium, evoking a high-end sci-fi anime aesthetic. The image provides a dark, sophisticated backdrop that perfectly complements the AniTech OS deep space theme without overwhelming foreground elements.">
+<div class="absolute inset-0 bg-background/80 backdrop-blur-md"></div>
+</div>
+<!-- Command Palette Overlay Container -->
+<div class="relative z-50 w-full max-w-3xl mx-4 transform transition-all duration-300 scale-100 opacity-100" id="command-palette">
+<!-- Palette Main Shell -->
+<div class="glass-panel rounded-xl ambient-shadow overflow-hidden flex flex-col max-h-[870px]">
+<!-- Search Header -->
+<div class="flex items-center px-6 py-5 border-b border-white/5 bg-surface-container/50">
+<span class="material-symbols-outlined text-electric-cyan text-2xl mr-4" style="font-variation-settings: 'FILL' 0;">search</span>
+<input autocomplete="off" autofocus="" class="w-full bg-transparent border-none text-on-surface font-headline-md text-headline-md focus:ring-0 placeholder:text-on-surface-variant/50 p-0" placeholder="Search anime, commands, or settings..." spellcheck="false" type="text" value="Neon Genesis"/>
+<div class="flex items-center gap-2 ml-4">
+<span class="px-2 py-1 bg-surface-variant/50 rounded font-label-sm text-label-sm text-on-surface-variant border border-white/5">⌘</span>
+<span class="px-2 py-1 bg-surface-variant/50 rounded font-label-sm text-label-sm text-on-surface-variant border border-white/5">K</span>
+</div>
+</div>
+<!-- Results Area -->
+<div class="flex-1 overflow-y-auto p-4 space-y-6">
+<!-- AI Discovery Badge -->
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-soft-violet/10 to-transparent border border-soft-violet/20">
+<span class="material-symbols-outlined text-soft-violet" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div>
+<p class="font-metadata text-metadata text-primary">AI Suggestion based on recent watch history</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">You might like: <span class="text-on-surface">Cyberpunk: Edgerunners</span></p>
+</div>
+</div>
+<!-- Top Matches -->
+<div>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-3 px-2 uppercase tracking-wider">Top Matches</h3>
+<div class="space-y-1">
+<!-- Active Result Item -->
+<div class="flex items-center gap-4 p-3 rounded-lg bg-surface-bright/40 border border-electric-cyan/30 cursor-pointer group hover:bg-surface-bright/60 transition-colors">
+<div class="w-12 h-16 rounded bg-surface-container-high overflow-hidden flex-shrink-0 relative">
+<img alt="Anime Poster" class="w-full h-full object-cover" data-alt="A vertical anime poster style image showing a sleek, towering mecha standing against a blood-red sky, reminiscent of classic apocalyptic sci-fi. The lighting is dramatic, highlighting the mechanical details and angular design of the robot. The overall palette is deep crimson, harsh blacks, and stark whites, creating a tense, cinematic atmosphere. High quality, detailed illustration style fitting for a premium media interface thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEnnJyRdkmlDNlcka1foO3zJCQD3iVKLhsf5dQBNJAS5hG97xjkMwqp5HbRVIw7b386BBllH1nZQTU2Vx2lSJZiy4IakksK_H5siHFBMK0fm8myziP-CT9edlCy9R2pDpv2uHaddRUEcruRY1GGM2xABhkDAETt1OnBqlB0V02hNDsAkxokbatng4vYKx9TO8w7dSiy5BG_u3jJzZyXiG_jGCx0LjmKuyhkyCiEEuAKVhI8RoyZKDcEj1HRKe1IPzDI1Quai-1Ptw"/>
+<!-- Progress Bar -->
+<div class="absolute bottom-0 left-0 h-[2px] bg-electric-cyan w-3/4"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h4 class="font-metadata text-metadata text-on-surface truncate">Neon Genesis: Rebuild 3.0+1.0</h4>
+<span class="px-1.5 py-0.5 rounded-sm bg-surface-variant font-label-sm text-[10px] text-electric-cyan border border-electric-cyan/20">Movie</span>
+</div>
+<div class="flex items-center gap-3 font-body-md text-[13px] text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 9.2</span>
+<span>Sci-Fi, Mecha</span>
+<span>2h 35m</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-electric-cyan opacity-100 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<!-- Result Item -->
+<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-surface-bright/20 cursor-pointer group transition-colors">
+<div class="w-12 h-16 rounded bg-surface-container-high overflow-hidden flex-shrink-0">
+<img alt="Anime Poster" class="w-full h-full object-cover" data-alt="A vertical anime poster style image depicting a melancholic, futuristic cityscape reflected in a puddle of water. Rain is falling gently, illuminated by the soft neon glow of distant signs in soft violets and pale blues. A lone figure stands holding an umbrella, silhouetted against the bright city lights. The mood is quiet, atmospheric, and highly detailed, perfectly suiting a cinematic anime series thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhcGRe-N5XWzDLRTzcypS8SXXdGuCJ5RY5eTII5J5_rSeJKXd9t1Vvy1vF3hd7bkzGY532ZlBSoW31mlCZhHdAf0AY2AA5PzXB6sjefVdFSTDTJ1r1wKmkLHkzE5gajU3JGyS2PiMp6-cdHcZWDHl5qSbP32DNS-jWfIh6JyWxQ9msD-sQA-3kbUMak6bWtYS-uK2FMnEPkGpfOLlaZcbYqQYNEFzWESkJry4lZc7KlTAbUqbB7hzZcwHahIgYoolivY99L_0ftdU"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h4 class="font-metadata text-metadata text-on-surface truncate">Neon Genesis Evangelion</h4>
+<span class="px-1.5 py-0.5 rounded-sm bg-surface-variant font-label-sm text-[10px] text-on-surface-variant border border-white/5">TV</span>
+</div>
+<div class="flex items-center gap-3 font-body-md text-[13px] text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 9.8</span>
+<span>Sci-Fi, Psychological</span>
+<span>26 eps</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-3 px-2 uppercase tracking-wider">Quick Actions</h3>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-bright/30 transition-colors text-left border border-transparent hover:border-white/5">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">list</span>
+</div>
+<span class="font-metadata text-metadata text-on-surface">Go to Watchlist</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-bright/30 transition-colors text-left border border-transparent hover:border-white/5">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">extension</span>
+</div>
+<span class="font-metadata text-metadata text-on-surface">Open Plugin Manager</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-bright/30 transition-colors text-left border border-transparent hover:border-white/5">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">dark_mode</span>
+</div>
+<span class="font-metadata text-metadata text-on-surface">Theme: Midnight</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-bright/30 transition-colors text-left border border-transparent hover:border-white/5">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+</div>
+<span class="font-metadata text-metadata text-on-surface">System Preferences</span>
+</button>
+</div>
+</div>
+<!-- Recent -->
+<div>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-3 px-2 uppercase tracking-wider">Recent Searches</h3>
+<div class="space-y-1">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-bright/20 cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">history</span>
+<span class="font-body-md text-body-md text-on-surface">Ghost in the Shell</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-bright/20 cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">history</span>
+<span class="font-body-md text-body-md text-on-surface">Akira 4K Remaster</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Keyboard Hints Footer -->
+<div class="border-t border-white/5 bg-surface-container-high/30 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 bg-surface-variant rounded font-label-sm text-[10px] text-on-surface-variant border border-white/5 material-symbols-outlined" style="font-size: 14px;">arrow_upward</span>
+<span class="px-1.5 py-0.5 bg-surface-variant rounded font-label-sm text-[10px] text-on-surface-variant border border-white/5 material-symbols-outlined" style="font-size: 14px;">arrow_downward</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-1">Navigate</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 bg-surface-variant rounded font-label-sm text-[10px] text-on-surface-variant border border-white/5 material-symbols-outlined" style="font-size: 14px;">keyboard_return</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-1">Select</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 bg-surface-variant rounded font-label-sm text-[10px] text-on-surface-variant border border-white/5">Esc</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-1">Close</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+        // Simple entrance animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const palette = document.getElementById('command-palette');
+            palette.style.opacity = '0';
+            palette.style.transform = 'scale(0.95) translateY(-10px)';
+            
+            setTimeout(() => {
+                palette.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+                palette.style.opacity = '1';
+                palette.style.transform = 'scale(1) translateY(0)';
+            }, 50);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,29 @@
+{
+  "name": "anitech",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:generate": "pnpm --filter database prisma:generate",
+    "db:migrate": "pnpm --filter database prisma:migrate",
+    "db:studio": "pnpm --filter database prisma:studio",
+    "db:seed": "pnpm --filter database prisma:seed",
+    "api:dev": "pnpm --filter api dev",
+    "api:build": "pnpm --filter api build",
+    "api:start": "pnpm --filter api start",
+    "ws:dev": "pnpm --filter websocket dev",
+    "worker:dev": "pnpm --filter worker dev",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "prettier": "^3.1.0",
+    "turbo": "^2.0.0",
+    "typescript": "^5.3.0"
+  },
+  "packageManager": "pnpm@8.12.0"
+}

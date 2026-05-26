@@ -1,0 +1,26 @@
+{
+  "name": "@anitech/worker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "lint": "eslint src --ext .ts"
+  },
+  "dependencies": {
+    "@anitech/database": "workspace:*",
+    "@anitech/shared": "workspace:*",
+    "bullmq": "^5.1.0",
+    "ioredis": "^5.3.0",
+    "meilisearch": "^0.36.0",
+    "pino": "^8.17.0",
+    "pino-pretty": "^10.3.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}

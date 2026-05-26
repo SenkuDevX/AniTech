@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AniTech OS - Plugin Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#008ea1",
+                        "deep-indigo": "#312E81",
+                        "inverse-primary": "#565e74",
+                        "tertiary-container": "#001b20",
+                        "tertiary": "#2fd9f4",
+                        "on-surface": "#d8e3fb",
+                        "surface-bright": "#2f3a4c",
+                        "tertiary-fixed": "#a2eeff",
+                        "surface-dim": "#081425",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "primary": "#bec6e0",
+                        "inverse-on-surface": "#263143",
+                        "azure-blue": "#3B82F6",
+                        "pale-gold": "#FDE68A",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "on-primary-container": "#798098",
+                        "on-tertiary": "#00363e",
+                        "surface-tint": "#bec6e0",
+                        "primary-container": "#0f172a",
+                        "secondary": "#b9c7e0",
+                        "outline": "#909097",
+                        "surface-container-low": "#111c2d",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#001f25",
+                        "on-primary": "#283044",
+                        "on-background": "#d8e3fb",
+                        "outline-variant": "#45464d",
+                        "error-container": "#93000a",
+                        "background": "#081425",
+                        "inverse-surface": "#d8e3fb",
+                        "muted-charcoal": "#0F172A",
+                        "surface-container-high": "#1f2a3c",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary-container": "#abb9d2",
+                        "on-secondary": "#233144",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-highest": "#2a3548",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "secondary-fixed": "#d5e3fd",
+                        "electric-cyan": "#22D3EE",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "tertiary-fixed-dim": "#2fd9f4",
+                        "surface-container": "#152031",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "surface-container-lowest": "#040e1f",
+                        "error": "#ffb4ab",
+                        "subtle-magenta": "#D946EF",
+                        "soft-violet": "#A78BFA",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#3c4a5e",
+                        "surface-variant": "#2a3548",
+                        "surface": "#081425"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "grid-unit": "8px",
+                        "sidebar-width": "260px",
+                        "gutter": "24px",
+                        "content-margin": "40px",
+                        "sidebar-collapsed": "80px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-xl": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "metadata": ["Hanken Grotesk"],
+                        "headline-lg": ["Sora"],
+                        "display-xl-mobile": ["Sora"],
+                        "body-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "metadata": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-xl-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .glass-panel {
+            background: rgba(42, 53, 72, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .ambient-shadow {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, theme('colors.azure-blue'), theme('colors.electric-cyan'));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hide scrollbar for a cleaner UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2); 
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden selection:bg-soft-violet selection:text-white">
+<!-- Persistent Left Sidebar -->
+<nav class="fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low/80 backdrop-blur-xl border-r border-white/5 shadow-2xl flex flex-col p-4 gap-2 z-50">
+<!-- Header -->
+<div class="mb-8 px-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-variant overflow-hidden shrink-0">
+<img alt="AniTech OS User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYVnVppEZmcBqdBNYiMgdz1yeCtlJSENuA9MpI2qYXwtDaSqjOitgT1FShZRb226F0nbKeDlHXf5bdl4sfa47uvOrAtf48ptwYKz4VjqqM3mGuh-EfzRdAMoZmp2ZoYxMzGOxmHj1BEGn_h8BhpERCQvxxhCu6sYYRW_SITqGYfMW4adDAGjNP2dQ8eTn62-yIOqPiCLruiOqKX6t0UMs9pvEQk5tN2AFIPeT0pT_irYIlwdI4gx1x-m6yMixJzxYu1-ETzALyJv4"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-soft-violet truncate">AniTech OS</h1>
+<p class="font-metadata text-metadata text-on-surface-variant truncate">Premium Media Suite</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="mb-6 mx-4 py-2 px-4 rounded-lg bg-gradient-to-r from-azure-blue to-electric-cyan text-white font-metadata text-metadata font-bold hover:shadow-[0_0_15px_rgba(34,211,238,0.5)] transition-all duration-300">
+            Go Premium
+        </button>
+<!-- Main Nav Tabs -->
+<div class="flex-1 overflow-y-auto">
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 mb-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm tracking-wider">Home</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 mb-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">bookmarks</span>
+<span class="font-label-sm text-label-sm tracking-wider">Watchlist</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 mb-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">newspaper</span>
+<span class="font-label-sm text-label-sm tracking-wider">News</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 mb-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">video_library</span>
+<span class="font-label-sm text-label-sm tracking-wider">Library</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 mb-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="font-label-sm text-label-sm tracking-wider">Community</span>
+</a>
+<!-- Plugins active state semantic match -->
+<a class="text-soft-violet font-bold flex items-center gap-3 py-3 px-4 rounded-lg bg-surface-variant/30 mt-4 border border-soft-violet/20" href="#">
+<span class="material-symbols-outlined text-soft-violet" style="font-variation-settings: 'FILL' 1;">extension</span>
+<span class="font-label-sm text-label-sm tracking-wider">Plugins</span>
+</a>
+</div>
+<!-- Footer Nav -->
+<div class="mt-auto border-t border-white/5 pt-4">
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 mb-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-label-sm text-label-sm tracking-wider">Settings</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_center</span>
+<span class="font-label-sm text-label-sm tracking-wider">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width flex-1 h-full overflow-y-auto px-content-margin py-8 relative">
+<!-- Header & Search -->
+<header class="flex justify-between items-end mb-12 relative z-10">
+<div>
+<h1 class="font-display-xl text-display-xl mb-2 gradient-text">Plugin Manager</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex items-center gap-2">
+                    Extend and customize your AniTech OS experience.
+                    <span class="inline-flex items-center gap-1 bg-surface-variant/50 px-3 py-1 rounded-full text-electric-cyan font-metadata text-metadata border border-electric-cyan/20 ml-4">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+                        System Integrity Confirmed
+                    </span>
+</p>
+</div>
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container/50 border border-white/10 rounded-full py-3 pl-12 pr-4 text-on-surface font-metadata text-metadata focus:outline-none focus:border-soft-violet focus:ring-1 focus:ring-soft-violet transition-all backdrop-blur-md" placeholder="Search extensions..." type="text"/>
+</div>
+</header>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-gutter">
+<!-- Center Column (Main Content) -->
+<div class="xl:col-span-3 space-y-12">
+<!-- Categories Pills -->
+<div class="flex gap-4 overflow-x-auto pb-4 hide-scroll">
+<button class="px-6 py-2 rounded-full bg-surface-variant text-on-surface font-metadata text-metadata border border-white/10 hover:bg-white/10 transition-colors whitespace-nowrap active">Discover</button>
+<button class="px-6 py-2 rounded-full bg-transparent text-on-surface-variant font-metadata text-metadata border border-transparent hover:bg-white/5 transition-colors whitespace-nowrap">Installed</button>
+<button class="px-6 py-2 rounded-full bg-transparent text-on-surface-variant font-metadata text-metadata border border-transparent hover:bg-white/5 transition-colors whitespace-nowrap">Themes</button>
+<button class="px-6 py-2 rounded-full bg-transparent text-on-surface-variant font-metadata text-metadata border border-transparent hover:bg-white/5 transition-colors whitespace-nowrap">Playback</button>
+<button class="px-6 py-2 rounded-full bg-transparent text-on-surface-variant font-metadata text-metadata border border-transparent hover:bg-white/5 transition-colors whitespace-nowrap">Social</button>
+<button class="px-6 py-2 rounded-full bg-transparent text-on-surface-variant font-metadata text-metadata border border-transparent hover:bg-white/5 transition-colors whitespace-nowrap">Developer Tools</button>
+<button class="px-6 py-2 rounded-full bg-transparent text-on-surface-variant font-metadata text-metadata border border-transparent hover:bg-white/5 transition-colors whitespace-nowrap">Integrations</button>
+</div>
+<!-- Featured Plugins Bento Grid -->
+<section>
+<h2 class="font-headline-lg text-headline-lg mb-6">Featured</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-grid-unit*3 lg:gap-6">
+<!-- Featured Card 1 -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group ambient-shadow hover:scale-[1.02] transition-transform duration-300">
+<!-- Background Glow -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-soft-violet/20 rounded-full blur-[80px] pointer-events-none group-hover:bg-soft-violet/30 transition-all"></div>
+<div class="flex items-start justify-between relative z-10 mb-4">
+<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-soft-violet to-deep-indigo flex items-center justify-center text-white shadow-lg shrink-0">
+<span class="material-symbols-outlined text-[32px]">animation</span>
+</div>
+<span class="bg-surface-bright px-3 py-1 rounded-lg text-xs font-label-sm text-on-surface flex items-center gap-1 border border-white/10">
+<span class="material-symbols-outlined text-[14px] text-pale-gold" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    4.9
+                                </span>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-1">AniMotion Plus</h3>
+<p class="font-metadata text-metadata text-on-surface-variant mb-4 line-clamp-2">Advanced easing curves and transition management for the core UI. Enhances the cinematic feel of navigation.</p>
+<div class="flex items-center justify-between mt-6">
+<span class="text-xs font-label-sm text-on-surface-variant">By Studio TriggerUI</span>
+<button class="bg-surface-bright hover:bg-white/20 text-on-surface px-4 py-2 rounded-lg font-metadata text-metadata transition-colors border border-white/10">
+                                        Install
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Featured Card 2 -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group ambient-shadow hover:scale-[1.02] transition-transform duration-300">
+<!-- Background Glow -->
+<div class="absolute -bottom-20 -right-20 w-64 h-64 bg-azure-blue/20 rounded-full blur-[80px] pointer-events-none group-hover:bg-azure-blue/30 transition-all"></div>
+<div class="flex items-start justify-between relative z-10 mb-4">
+<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-azure-blue to-tertiary flex items-center justify-center text-white shadow-lg shrink-0">
+<span class="material-symbols-outlined text-[32px]">format_paint</span>
+</div>
+<span class="bg-primary/20 px-3 py-1 rounded-lg text-xs font-label-sm text-primary flex items-center gap-1 border border-primary/30">
+                                    Installed
+                                </span>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-1">Glassify Theme Pack</h3>
+<p class="font-metadata text-metadata text-on-surface-variant mb-4 line-clamp-2">Overhauls the default UI with deeper blurs, enhanced vibrancy, and customizable accent colors.</p>
+<div class="flex items-center justify-between mt-6">
+<span class="text-xs font-label-sm text-on-surface-variant">By Aesthetica</span>
+<button class="bg-surface/50 text-on-surface-variant px-4 py-2 rounded-lg font-metadata text-metadata transition-colors border border-white/10 hover:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                                        Configure
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Plugins -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-lg text-headline-lg">Trending Integrations</h2>
+<button class="text-soft-violet font-metadata text-metadata hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Plugin Card 1 -->
+<div class="glass-panel rounded-lg p-5 group hover:-translate-y-1 transition-all duration-300">
+<div class="flex gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0 border border-white/5">
+<span class="material-symbols-outlined text-subtle-magenta">forum</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold leading-tight">Discord Rich Presence</h4>
+<p class="text-xs font-label-sm text-on-surface-variant mt-1">98% Match</p>
+</div>
+</div>
+<p class="font-metadata text-metadata text-on-surface-variant text-sm mb-4 line-clamp-2">Show what you're watching directly on your Discord profile with episode tracking.</p>
+<button class="w-full bg-surface-bright hover:bg-white/10 text-on-surface py-2 rounded-md font-metadata text-metadata transition-colors border border-white/5 text-sm">
+                                Install
+                            </button>
+</div>
+<!-- Plugin Card 2 -->
+<div class="glass-panel rounded-lg p-5 group hover:-translate-y-1 transition-all duration-300">
+<div class="flex gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0 border border-white/5 relative">
+<span class="material-symbols-outlined text-azure-blue">sync</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-electric-cyan rounded-full border-2 border-surface-dim"></div>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold leading-tight">MAL Sync Pro</h4>
+<p class="text-xs font-label-sm text-on-surface-variant mt-1">Utility</p>
+</div>
+</div>
+<p class="font-metadata text-metadata text-on-surface-variant text-sm mb-4 line-clamp-2">Automatically update your MyAnimeList progress as you watch.</p>
+<button class="w-full bg-surface/50 text-electric-cyan py-2 rounded-md font-metadata text-metadata transition-colors border border-electric-cyan/20 text-sm flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">update</span>
+                                Update Available
+                            </button>
+</div>
+<!-- Plugin Card 3 -->
+<div class="glass-panel rounded-lg p-5 group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-subtle-magenta/20 text-subtle-magenta text-[10px] font-label-sm px-2 py-1 rounded-bl-lg border-l border-b border-subtle-magenta/30">NEW</div>
+<div class="flex gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0 border border-white/5">
+<span class="material-symbols-outlined text-pale-gold">subtitles</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold leading-tight">AutoSubs AI</h4>
+<p class="text-xs font-label-sm text-on-surface-variant mt-1">Playback</p>
+</div>
+</div>
+<p class="font-metadata text-metadata text-on-surface-variant text-sm mb-4 line-clamp-2">Real-time AI translation and subtitle generation for raw broadcasts.</p>
+<button class="w-full bg-surface-bright hover:bg-white/10 text-on-surface py-2 rounded-md font-metadata text-metadata transition-colors border border-white/5 text-sm">
+                                Install
+                            </button>
+</div>
+</div>
+</section>
+<!-- Developer CTA -->
+<section class="mt-8">
+<div class="rounded-xl border border-dashed border-white/20 p-8 flex items-center justify-between bg-surface-container-low/50 backdrop-blur-sm">
+<div class="flex gap-6 items-center">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant">code</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-1">Build Your Own Plugin</h3>
+<p class="font-metadata text-metadata text-on-surface-variant">Extend AniTech OS using our comprehensive API and SDK.</p>
+</div>
+</div>
+<button class="px-6 py-3 rounded-lg bg-surface-bright text-on-surface font-metadata text-metadata border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2">
+                            Read Documentation
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</div>
+<!-- Right Context Panel (Activity/Stats) -->
+<div class="hidden xl:block col-span-1">
+<div class="glass-panel rounded-xl h-full p-6 sticky top-0 flex flex-col gap-8">
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold border-b border-white/10 pb-2 mb-4">System Status</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-metadata text-metadata text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-electric-cyan"></span> Active Plugins
+                                </span>
+<span class="font-label-sm text-label-sm">12</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-metadata text-metadata text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-soft-violet"></span> Memory Usage
+                                </span>
+<span class="font-label-sm text-label-sm">142 MB</span>
+</div>
+<!-- Simple progress bar -->
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-gradient-to-r from-azure-blue to-soft-violet h-full w-[35%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold border-b border-white/10 pb-2 mb-4">Recently Updated</h3>
+<div class="space-y-4">
+<!-- Mini list item -->
+<div class="flex gap-3 items-center group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center shrink-0 border border-white/5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">graphic_eq</span>
+</div>
+<div>
+<p class="font-metadata text-metadata text-sm group-hover:text-tertiary transition-colors">Audio Enhancer Pro</p>
+<p class="text-[10px] font-label-sm text-on-surface-variant">v2.4.1 • 2 hrs ago</p>
+</div>
+</div>
+<div class="flex gap-3 items-center group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center shrink-0 border border-white/5">
+<span class="material-symbols-outlined text-[16px] text-soft-violet">palette</span>
+</div>
+<div>
+<p class="font-metadata text-metadata text-sm group-hover:text-soft-violet transition-colors">Midnight Theme</p>
+<p class="text-[10px] font-label-sm text-on-surface-variant">v1.1.0 • 1 day ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

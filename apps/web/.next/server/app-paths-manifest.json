@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/anime/[id]/page": "app/anime/[id]/page.js",
+  "/auth/register/page": "app/auth/register/page.js",
+  "/auth/forgot-password/page": "app/auth/forgot-password/page.js",
+  "/auth/login/page": "app/auth/login/page.js",
+  "/library/page": "app/library/page.js",
+  "/manga/[id]/[chapterId]/page": "app/manga/[id]/[chapterId]/page.js",
+  "/downloads/page": "app/downloads/page.js",
+  "/manga/page": "app/manga/page.js",
+  "/news/[slug]/page": "app/news/[slug]/page.js",
+  "/notifications/page": "app/notifications/page.js",
+  "/page": "app/page.js",
+  "/news/page": "app/news/page.js",
+  "/plugins/page": "app/plugins/page.js",
+  "/player/[animeId]/[episodeId]/page": "app/player/[animeId]/[episodeId]/page.js",
+  "/profile/[id]/page": "app/profile/[id]/page.js",
+  "/settings/page": "app/settings/page.js",
+  "/social/page": "app/social/page.js",
+  "/search/page": "app/search/page.js",
+  "/watchlist/page": "app/watchlist/page.js"
+}

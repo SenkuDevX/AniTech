@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AniTech OS - Watchlist Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#040e1f",
+                        "outline": "#909097",
+                        "soft-violet": "#A78BFA",
+                        "surface-container": "#152031",
+                        "surface-container-highest": "#2a3548",
+                        "secondary": "#b9c7e0",
+                        "surface-variant": "#2a3548",
+                        "electric-cyan": "#22D3EE",
+                        "on-secondary-container": "#abb9d2",
+                        "surface-bright": "#2f3a4c",
+                        "background": "#081425",
+                        "tertiary": "#2fd9f4",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "on-tertiary": "#00363e",
+                        "tertiary-fixed-dim": "#2fd9f4",
+                        "on-surface": "#d8e3fb",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "subtle-magenta": "#D946EF",
+                        "primary-container": "#0f172a",
+                        "on-secondary": "#233144",
+                        "on-primary-fixed": "#131b2e",
+                        "deep-indigo": "#312E81",
+                        "secondary-fixed": "#d5e3fd",
+                        "pale-gold": "#FDE68A",
+                        "on-tertiary-fixed": "#001f25",
+                        "on-error": "#690005",
+                        "muted-charcoal": "#0F172A",
+                        "surface-dim": "#081425",
+                        "secondary-container": "#3c4a5e",
+                        "surface": "#081425",
+                        "on-primary-container": "#798098",
+                        "surface-tint": "#bec6e0",
+                        "on-background": "#d8e3fb",
+                        "on-tertiary-container": "#008ea1",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#111c2d",
+                        "on-primary": "#283044",
+                        "outline-variant": "#45464d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed": "#a2eeff",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#001b20",
+                        "azure-blue": "#3B82F6",
+                        "inverse-primary": "#565e74",
+                        "primary-fixed": "#dae2fd",
+                        "primary": "#bec6e0",
+                        "error-container": "#93000a",
+                        "inverse-surface": "#d8e3fb",
+                        "inverse-on-surface": "#263143",
+                        "surface-container-high": "#1f2a3c"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "sidebar-width": "260px",
+                        "sidebar-collapsed": "80px",
+                        "grid-unit": "8px",
+                        "content-margin": "40px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Sora"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "metadata": ["Hanken Grotesk"],
+                        "display-xl-mobile": ["Sora"],
+                        "display-xl": ["Sora"],
+                        "headline-md": ["Sora"]
+                    },
+                    fontSize: {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "metadata": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "display-xl-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(42, 53, 72, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .anime-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .anime-card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .anime-card-hover:hover .overlay {
+            opacity: 1;
+        }
+        
+        /* Custom Scrollbar for immersive feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #081425;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3548;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3c4a5e;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen overflow-x-hidden selection:bg-electric-cyan/30">
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-260px)] md:w-[calc(100%-var(--spacing-sidebar-width))] h-16 bg-surface/40 backdrop-blur-md border-b border-white/5 flex justify-between items-center px-content-margin z-40">
+<!-- Navigation Links -->
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-metadata text-metadata text-on-surface-variant hover:text-primary transition-colors" href="#">Simulcasts</a>
+<a class="font-metadata text-metadata text-on-surface-variant hover:text-primary transition-colors" href="#">Movies</a>
+<a class="font-metadata text-metadata text-on-surface-variant hover:text-primary transition-colors" href="#">Trending</a>
+</nav>
+<!-- Right Actions -->
+<div class="flex items-center gap-6">
+<div class="flex gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">account_circle</span></button>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 transition-colors font-metadata text-metadata text-on-surface">Sign Out</button>
+<button class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-azure-blue to-tertiary text-on-primary font-metadata text-metadata hover:shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all">Upgrade</button>
+</div>
+</div>
+</header>
+<!-- Side Nav Bar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width border-r border-white/5 bg-surface-container-low/80 backdrop-blur-xl shadow-2xl z-50 flex flex-col p-4 gap-2">
+<!-- Brand Header -->
+<div class="mb-8 mt-2 px-4 flex items-center gap-3 cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-soft-violet to-electric-cyan flex items-center justify-center shadow-[0_0_15px_rgba(167,139,250,0.3)]">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-soft-violet leading-tight">AniTech OS</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">Premium Media Suite</p>
+</div>
+</div>
+<!-- Main Nav -->
+<nav class="flex-1 space-y-1">
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 font-label-sm text-label-sm tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">home</span>
+                Home
+            </a>
+<a class="text-soft-violet font-bold flex items-center gap-3 py-3 px-4 rounded-lg bg-surface-variant/30 font-label-sm text-label-sm tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bookmarks</span>
+                Watchlist
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 font-label-sm text-label-sm tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">newspaper</span>
+                News
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 font-label-sm text-label-sm tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">video_library</span>
+                Library
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 font-label-sm text-label-sm tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+                Community
+            </a>
+</nav>
+<!-- Footer Nav -->
+<div class="mt-auto space-y-1 pt-4 border-t border-white/5">
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 font-label-sm text-label-sm tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300 font-label-sm text-label-sm tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">help_center</span>
+                Support
+            </a>
+</div>
+<!-- CTA -->
+<button class="mt-4 w-full py-3 rounded-lg bg-gradient-to-r from-soft-violet/80 to-azure-blue/80 text-white font-label-sm text-label-sm tracking-wider hover:shadow-[0_0_20px_rgba(167,139,250,0.4)] transition-all">
+            Go Premium
+        </button>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width pt-16 min-h-screen">
+<div class="px-content-margin py-8 max-w-[1800px] mx-auto">
+<!-- Page Header & Filters -->
+<div class="mb-10 space-y-6">
+<div class="flex items-end justify-between">
+<div>
+<h2 class="font-display-xl text-display-xl text-on-surface mb-2">Watchlist Archive</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and track your cinematic journeys.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-high/50 p-1.5 rounded-xl border border-white/5">
+<button class="p-2 rounded-lg bg-surface-variant text-on-surface shadow-sm"><span class="material-symbols-outlined text-[20px]">grid_view</span></button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-colors"><span class="material-symbols-outlined text-[20px]">view_list</span></button>
+<div class="w-px h-6 bg-white/10 mx-1"></div>
+<button class="px-4 py-2 rounded-lg text-on-surface-variant hover:bg-white/5 transition-colors font-metadata text-metadata flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span> Bulk Edit
+                        </button>
+</div>
+</div>
+<!-- Control Bar -->
+<div class="flex flex-wrap gap-4 items-center justify-between bg-surface-container/60 p-2 pl-4 rounded-2xl border border-white/5 glass-panel">
+<!-- Status Tabs -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar">
+<button class="px-5 py-2 rounded-xl bg-soft-violet/20 text-soft-violet font-metadata text-metadata border border-soft-violet/30 whitespace-nowrap">All</button>
+<button class="px-5 py-2 rounded-xl text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors font-metadata text-metadata whitespace-nowrap">Watching</button>
+<button class="px-5 py-2 rounded-xl text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors font-metadata text-metadata whitespace-nowrap">Plan to Watch</button>
+<button class="px-5 py-2 rounded-xl text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors font-metadata text-metadata whitespace-nowrap">Completed</button>
+<button class="px-5 py-2 rounded-xl text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors font-metadata text-metadata whitespace-nowrap">Dropped</button>
+</div>
+<!-- Dropdowns -->
+<div class="flex gap-3 px-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-highest/50 border border-white/5 hover:bg-surface-variant transition-colors font-metadata text-metadata text-on-surface-variant">
+                            Genre <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-highest/50 border border-white/5 hover:bg-surface-variant transition-colors font-metadata text-metadata text-on-surface-variant">
+                            Season <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<div class="w-px h-6 bg-white/10 mx-1 self-center"></div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-highest/50 border border-white/5 hover:bg-surface-variant transition-colors font-metadata text-metadata text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">sort</span> Score
+                        </button>
+</div>
+</div>
+</div>
+<!-- Continue Watching Highlight (Bento style) -->
+<section class="mb-12">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-cyan" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+                    Active Sessions
+                </h3>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Highlight Card 1 -->
+<div class="relative overflow-hidden rounded-2xl glass-panel group cursor-pointer border-l-4 border-l-electric-cyan">
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/80 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition-opacity duration-500" data-alt="A cinematic, wide-angle shot of a futuristic cyberpunk city skyline at night. Neon blues and pinks reflect off rain-slicked glass skyscrapers. The scene is illuminated by dramatic, high-contrast lighting typical of high-end anime backgrounds. The aesthetic is immersive, dark, and highly detailed, perfectly matching the AniTech OS premium media suite vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBxzGnQglmvzg4DBoKvI0o6epiB5pFXgm97bbeP6kR2NS3E00MBZjrrVQ9fVo0CTBgNvbbSGa5uNuKTaEmSbs7d2qHyiuRbk6zAdpqeFZRvtL0jSXSULN32IugYvZWvHdeLiKOGyp4uJeEKrpHTNM7O5Mrepl09X1AMds6NI1TNEy5Die3_tlsXGHwXqEjUZUhM9TpGQEqrNtb2C039WMpo-XMEShIYar8EVszWe-1vL7ftib7TZA51ceZNmJNiU-bfeOK6LHs6XE');"></div>
+<div class="relative z-20 p-6 flex flex-col h-full justify-between min-h-[200px]">
+<div class="flex justify-between items-start">
+<span class="px-3 py-1 bg-electric-cyan/20 text-electric-cyan rounded-full font-label-sm text-label-sm border border-electric-cyan/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sensors</span> Airing
+                                </span>
+<button class="w-10 h-10 rounded-full bg-white/10 hover:bg-electric-cyan hover:text-black flex items-center justify-center transition-all backdrop-blur-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div>
+<h4 class="font-headline-lg text-headline-lg text-white mb-2 leading-tight">Neon Genesis Rebuild</h4>
+<div class="flex items-center gap-4 text-on-surface-variant font-metadata text-metadata mb-4">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-pale-gold" style="font-variation-settings: 'FILL' 1;">star</span> 9.2</span>
+<span>Sci-Fi / Mecha</span>
+<span>Ep 12 of 24</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-electric-cyan w-[50%] relative">
+<div class="absolute top-0 right-0 bottom-0 w-4 bg-white/50 blur-[2px]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Highlight Card 2 -->
+<div class="relative overflow-hidden rounded-2xl glass-panel group cursor-pointer">
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/80 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition-opacity duration-500" data-alt="A serene, beautifully illustrated fantasy landscape featuring ancient ruins overgrown with vibrant, glowing flora. Soft, ethereal lighting filters through a mist, creating a sense of depth and mystery. The color palette leans heavily into deep indigo, soft violet, and slate blues, reflecting a premium, cinematic visual style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZozMVCsd0rh9O2Q8lJIZwtjNWdVH-STlsJlzLQ8uUhwbe0bOlQTcikSHibY_Nh_NPJTinK3Rx2XddQe4OofgXjejdVzFxh7l-q4wi85qJl5tTGOjsKByQpxq5ooLdxSWKKHSERmp532Komz2XOe9CI1K97Y_UPx5r4NKqzy8ndkoPwUzN-MTfosKzDQ7KowRbUNGJGHLpmCvWDjIk9bHM1yg-KuYvaaW0lGwpSsSnONWxQnblYt-ylv2O6ZASpxdn5M5ytio3SMk');"></div>
+<div class="relative z-20 p-6 flex flex-col h-full justify-between min-h-[200px]">
+<div class="flex justify-between items-start">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pause_circle</span> Paused
+                                </span>
+<button class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all backdrop-blur-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div>
+<h4 class="font-headline-lg text-headline-lg text-white mb-2 leading-tight">Echoes of Eternity</h4>
+<div class="flex items-center gap-4 text-on-surface-variant font-metadata text-metadata mb-4">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-pale-gold" style="font-variation-settings: 'FILL' 1;">star</span> 8.7</span>
+<span>Fantasy / Drama</span>
+<span>Ep 3 of 12</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-soft-violet w-[25%] relative"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Library Grid -->
+<section>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">All Series</h3>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+<!-- Anime Card 1 -->
+<div class="group relative rounded-xl overflow-hidden bg-surface-container anime-card-hover border border-white/5">
+<div class="aspect-[2/3] w-full bg-surface-variant relative overflow-hidden">
+<img alt="Anime Cover" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A vertical portrait style illustration showing a stylized character silhouette against a massive, glowing cyberpunk moon. The color grading uses rich navies, electric cyans, and deep purples. The texture has a subtle film grain, giving it a high-end, cinematic collector's card appearance suitable for a modern media interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMiMzRlu9PjaUvaFcq4Sc-9ABWwXI7Hke1CnMo7b5QPSUbeiVoE1TNNQl5kB8lhAqJXkjUCQPqNg-O_7sMaR6A0_RQItoUpoBl5LfvB1GJJVBoyJAxPDirYUsXOPO0dCpuIebULQ4NDugihz8xSwdDJJlxmYT0PpPCHI5EXUKH1tmU4TN7NohTnuB0cWG3nlW_s_XDQYqb8iSa0sL2EV8rc2WnGZFBxlDjkUyJzkbs7DwGLrMSqE0KG_GpUiUZesnpyS5VXk5CGXA"/>
+<!-- Context Tag -->
+<div class="absolute top-2 left-2 z-20">
+<span class="bg-surface-container-lowest/80 backdrop-blur-sm text-electric-cyan font-label-sm text-label-sm px-2 py-1 rounded border border-electric-cyan/20">Next: Tonight</span>
+</div>
+<!-- Hover Overlay -->
+<div class="overlay absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/90 to-transparent opacity-0 transition-opacity duration-300 z-10 flex flex-col justify-end p-4">
+<div class="flex gap-2 mb-2">
+<span class="bg-white/10 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Action</span>
+<span class="bg-white/10 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Sci-Fi</span>
+</div>
+<p class="font-metadata text-metadata text-on-surface-variant line-clamp-3 mb-4">In a dystopian future, a rogue operative must navigate the treacherous neon-lit underworld to uncover a conspiracy that threatens the remnants of humanity.</p>
+<button class="w-full py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg font-metadata text-metadata flex items-center justify-center gap-2 backdrop-blur-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span> Add to Queue
+                                </button>
+</div>
+</div>
+<!-- Metadata Area -->
+<div class="p-3 bg-surface-container relative z-20">
+<h5 class="font-body-md font-bold text-on-surface truncate mb-1">Cyberpunk: Edgerunners</h5>
+<div class="flex justify-between items-center font-metadata text-metadata text-on-surface-variant text-sm">
+<span>10/10 Eps</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-pale-gold" style="font-variation-settings: 'FILL' 1;">star</span> 9.5</span>
+</div>
+</div>
+<!-- Progress Bottom Line -->
+<div class="absolute bottom-0 left-0 w-full h-[3px] bg-surface-variant z-20">
+<div class="h-full bg-soft-violet w-full"></div>
+</div>
+</div>
+<!-- Anime Card 2 -->
+<div class="group relative rounded-xl overflow-hidden bg-surface-container anime-card-hover border border-white/5">
+<div class="aspect-[2/3] w-full bg-surface-variant relative overflow-hidden">
+<img alt="Anime Cover" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A moody, atmospheric artwork showing an ancient Japanese temple surrounded by falling autumn leaves and dense, glowing mist. The lighting is low-key, emphasizing deep indigo and subtle magenta tones. It looks like a high-quality poster for a premium animated drama series, fitting perfectly within a dark-mode media library." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2ub-0a6W2yLWNytH05hJ-LhBhBRpvCva7_cO5ZLF-8JnAj9n8MGZvte8vZBphzBtX9QiHql-w4nOItwUsdd60v5rSiaADMCU8ox3sHpuzZHZRpz5nMyuLTm5MBVUloJQ548VhPO0qmyZJzC7yoMHwjaffxXZf1odQciihSX2ph52pC--3m0JXF10vmCY79rclt3ju7JVSi8R9iRurhkwESRVDyLE8Wv5nTAX9jamiThfXw-kF1IPjntK55pTr68d--Vs9R6SM84Q"/>
+<!-- Context Tag -->
+<div class="absolute top-2 left-2 z-20">
+<span class="bg-surface-container-lowest/80 backdrop-blur-sm text-on-surface-variant font-label-sm text-label-sm px-2 py-1 rounded border border-white/10">Plan to Watch</span>
+</div>
+<!-- Hover Overlay -->
+<div class="overlay absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/90 to-transparent opacity-0 transition-opacity duration-300 z-10 flex flex-col justify-end p-4">
+<div class="flex gap-2 mb-2">
+<span class="bg-white/10 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Historical</span>
+<span class="bg-white/10 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Drama</span>
+</div>
+<button class="w-full py-2 bg-soft-violet/80 hover:bg-soft-violet text-white rounded-lg font-metadata text-metadata flex items-center justify-center gap-2 backdrop-blur-md transition-colors mt-auto">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span> Start Watching
+                                </button>
+</div>
+</div>
+<div class="p-3 bg-surface-container relative z-20">
+<h5 class="font-body-md font-bold text-on-surface truncate mb-1">Samurai Champloo</h5>
+<div class="flex justify-between items-center font-metadata text-metadata text-on-surface-variant text-sm">
+<span>0/26 Eps</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-on-surface-variant" style="font-variation-settings: 'FILL' 1;">star</span> --</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[3px] bg-surface-variant z-20">
+<div class="h-full bg-white/20 w-[0%]"></div>
+</div>
+</div>
+<!-- Anime Card 3 -->
+<div class="group relative rounded-xl overflow-hidden bg-surface-container anime-card-hover border border-white/5">
+<div class="aspect-[2/3] w-full bg-surface-variant relative overflow-hidden">
+<img alt="Anime Cover" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A visually striking digital artwork of a giant mecha robot standing in a ruined cityscape. Sparks fly in the foreground, and the background is a mix of smoke and bright tertiary blue accents. The image is dramatic and cinematic, styled like a collector's edition Blu-ray cover for a dark-mode streaming platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoW4nSGWQDn5DrYPLY9jTTopzrU4Quw_P-fmhIooujUr4YxNi5UqzTFJqI-ZZHynofMqzz3r6ZXZCBb-YD62a9073hg2lfa4Al4Pa4AjBpkfcAofV146Xacn5JeQ9T_tU-k_hFLRxXDpllzvGVMSIRl7jU_JVPEDkSaswmr7QAcsoWSmplOYeYRXfhh2h8zh_Ij_BY3QKcjdgTf3qDRhfgJFrT0BOf_eQoUPydozeNDcPUB0EmE1bOKIzd2e_R0gdQ1lELHTb_DI8"/>
+<!-- Context Tag -->
+<div class="absolute top-2 left-2 z-20">
+<span class="bg-surface-container-lowest/80 backdrop-blur-sm text-subtle-magenta font-label-sm text-label-sm px-2 py-1 rounded border border-subtle-magenta/30">New Episodes</span>
+</div>
+<!-- Hover Overlay -->
+<div class="overlay absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/90 to-transparent opacity-0 transition-opacity duration-300 z-10 flex flex-col justify-end p-4">
+<div class="flex gap-2 mb-2">
+<span class="bg-white/10 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Mecha</span>
+<span class="bg-white/10 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Action</span>
+</div>
+<button class="w-full py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg font-metadata text-metadata flex items-center justify-center gap-2 backdrop-blur-md transition-colors mt-auto">
+<span class="material-symbols-outlined text-[18px]">add</span> Add to Queue
+                                </button>
+</div>
+</div>
+<div class="p-3 bg-surface-container relative z-20">
+<h5 class="font-body-md font-bold text-on-surface truncate mb-1">Iron Saga Vanguard</h5>
+<div class="flex justify-between items-center font-metadata text-metadata text-on-surface-variant text-sm">
+<span>14/24 Eps</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-pale-gold" style="font-variation-settings: 'FILL' 1;">star</span> 8.9</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[3px] bg-surface-variant z-20">
+<div class="h-full bg-azure-blue w-[58%]"></div>
+</div>
+</div>
+<!-- Placeholder Cards to fill grid -->
+<div class="hidden md:block group relative rounded-xl overflow-hidden bg-surface-container border border-white/5 opacity-50 hover:opacity-100 transition-opacity">
+<div class="aspect-[2/3] w-full bg-surface-variant/50 flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[48px] text-on-surface-variant">library_add</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Discover More</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Lightweight JS for interaction feel
+        document.querySelectorAll('.anime-card-hover').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential sound effect or haptic trigger placeholder
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AniTech OS - Cinematic Player</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar for dropdowns if needed */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(11, 20, 37, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Subtle glow for accents */
+        .cyan-glow {
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed": "#d5e3fd",
+                        "electric-cyan": "#22D3EE",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface": "#081425",
+                        "azure-blue": "#3B82F6",
+                        "tertiary": "#2fd9f4",
+                        "on-primary-fixed": "#131b2e",
+                        "pale-gold": "#FDE68A",
+                        "on-tertiary-container": "#008ea1",
+                        "primary": "#bec6e0",
+                        "surface-container": "#152031",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#abb9d2",
+                        "secondary": "#b9c7e0",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "surface-container-high": "#1f2a3c",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "surface-tint": "#bec6e0",
+                        "tertiary-fixed": "#a2eeff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary": "#233144",
+                        "surface-container-lowest": "#040e1f",
+                        "on-error": "#690005",
+                        "on-primary-container": "#798098",
+                        "inverse-primary": "#565e74",
+                        "surface-container-highest": "#2a3548",
+                        "subtle-magenta": "#D946EF",
+                        "deep-indigo": "#312E81",
+                        "soft-violet": "#A78BFA",
+                        "surface-variant": "#2a3548",
+                        "outline-variant": "#45464d",
+                        "background": "#081425",
+                        "on-surface-variant": "#c6c6cd",
+                        "tertiary-container": "#001b20",
+                        "secondary-container": "#3c4a5e",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#081425",
+                        "surface-container-low": "#111c2d",
+                        "on-tertiary": "#00363e",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "tertiary-fixed-dim": "#2fd9f4",
+                        "on-surface": "#d8e3fb",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#001f25",
+                        "muted-charcoal": "#0F172A",
+                        "surface-bright": "#2f3a4c",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-on-surface": "#263143",
+                        "primary-container": "#0f172a",
+                        "on-background": "#d8e3fb",
+                        "inverse-surface": "#d8e3fb",
+                        "on-primary": "#283044",
+                        "outline": "#909097"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "content-margin": "40px",
+                        "grid-unit": "8px",
+                        "sidebar-collapsed": "80px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    fontFamily: {
+                        "display-xl-mobile": ["Sora"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-md": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "metadata": ["Hanken Grotesk"],
+                        "display-xl": ["Sora"]
+                    },
+                    fontSize: {
+                        "display-xl-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "metadata": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "display-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface w-full h-screen overflow-hidden selection:bg-electric-cyan/30">
+<!-- Video Canvas -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A breathtaking, highly detailed anime-style futuristic cityscape at twilight. Neon lights in electric cyan and soft violet illuminate towering skyscrapers that pierce through atmospheric clouds. Flying vehicles leave light trails in the lower atmosphere. The mood is epic, cyberpunk-inspired, and immersive, with a cinematic deep navy and slate color palette reflecting the AniTech OS aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuL25HCzJAI-ChWbUESzUn6ZsaTCKXiDpjhYvaGJ2_4huitbN9sFUfiCPuIqIEUrLd7biBlWDgqp9dPXocAFF6VE485wAcow10JMDLZWCim_oAbJwdW_kid8VgCYJoN-VSHLtkClD8i84BiKYm_TdXJ19LBrq4RpYhWYWrgSq0YaW0jJJ5B6cu9z0oFYH2Z9mV7I6nbgT8jh5zpAO2p7umq8jvwdFqbCj3Val1TkB6dc-0IUXirXwtBM33vzLBTgaBATtc4piYMPk"/>
+<!-- Subtle Vignette/Gradient overlays for text legibility -->
+<div class="absolute inset-0 bg-gradient-to-b from-surface/80 via-transparent to-surface/90 pointer-events-none"></div>
+</div>
+<!-- UI Overlay Layer -->
+<div class="relative z-10 w-full h-full flex flex-col justify-between opacity-100 transition-opacity duration-500" id="player-ui">
+<!-- Top App Bar (Custom for Player) -->
+<header class="w-full p-content-margin flex justify-between items-start pt-8">
+<div class="flex items-center gap-6">
+<button class="w-12 h-12 rounded-full bg-surface-container/50 backdrop-blur-md flex items-center justify-center hover:bg-surface-variant transition-colors border border-white/10 group">
+<span class="material-symbols-outlined text-on-surface group-hover:text-electric-cyan transition-colors">arrow_back</span>
+</button>
+<div class="flex flex-col drop-shadow-lg">
+<h1 class="font-headline-lg text-headline-lg text-white">Echoes of the Void</h1>
+<p class="font-metadata text-metadata text-on-surface-variant mt-1">S2 E4: The Stellar Convergence</p>
+</div>
+</div>
+<!-- Watch Party Status -->
+<div class="flex items-center gap-3 bg-surface-container/40 backdrop-blur-md py-2 px-4 rounded-full border border-white/5">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface-container-highest overflow-hidden">
+<img alt="User 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChBYBIazVU30he9dSaIVr_firIjk1-ore_Dl0E4vP2H8eSa5VtJZCtM7oB3rQQcEIIZvFLXWl7oeIZjkOpW8OsotCSsRgnpfNu7e_kAfdRWvDr7-YOD3vL3PqD3EMX_acmm9n0rZAxEjHdEya4_TpX-BmcWffcEUNBLQm6OACnfCU2J8gKzMzrx-OAeQkBFuytmKc2s2ZanuqQSA5MarXwJdESD_oqKMB4XKOpNyJ5qQAuijLCRC3qruKuMWaZt0PVpasdiXGsDiY"/>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface-container-highest overflow-hidden">
+<img alt="User 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQedOx7I0SX4mn84XB5zvVonANP81VmY6J0ObeQEVuokjhc47xBdojIPk3ABUFc4mAoElBGTKt7fvm6ppvSgoLy5H72Y5g4Jno3beDvkSaotwqTJa_iXTR6JJXUKLGyWarBlmLrPVIJbZL4Eq4dTNSUSaFIyCrEaH7flVySokDIA1e3lKQ4NwBrjJKCW21JAbJs_vmn4YgtmHNtMDi4QQY82v3XC1-gXU2ESSAqoIeYHBWVSQPaoMAfNv4F5ibNVEaGQ4Xab4u50A"/>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface-container-highest overflow-hidden">
+<img alt="User 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCECHbvP6C8nkQm65-S-Uhr4nIJdn9XRgBoHKaQGf9kCOTsPQr83X--hX_P2ngWqBPmsVgufu4dwj1t1j8mTIANnUx1ebB-QpjCG4O8mbnz-NBI3vOph02LDp9TaL668OG448FUP-nNCpbCWzeTpH2aMhY7oMy1ilXpeCZEFfMHsCzxFIKXHQmknjg5YfTFl_6WN6wQYWaLjL4VCcr9XQs-CfUb0pkt7sEK2IwsK_wm36GusQ3ZxDyUe5_fsrkoL_tUE1kuTB37ScM"/>
+</div>
+</div>
+<div class="flex items-center gap-2 pl-2 border-l border-white/10">
+<span class="w-2 h-2 rounded-full bg-electric-cyan cyan-glow animate-pulse"></span>
+<span class="font-metadata text-metadata text-secondary">Party Live</span>
+</div>
+</div>
+</header>
+<!-- Center Play/Pause (Subtle Overlay) -->
+<div class="flex-1 flex items-center justify-center pointer-events-none">
+<div class="w-24 h-24 rounded-full bg-surface/30 backdrop-blur-sm border border-white/10 flex items-center justify-center opacity-0 scale-90 transition-all duration-300" id="center-play-indicator">
+<span class="material-symbols-outlined text-white text-[48px] filled">play_arrow</span>
+</div>
+</div>
+<!-- Skip Intro Button (Contextual) -->
+<div class="absolute bottom-32 right-content-margin z-20">
+<button class="bg-surface/60 backdrop-blur-xl border border-white/20 hover:border-electric-cyan text-white py-3 px-6 rounded-lg flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-2xl group">
+<span class="material-symbols-outlined text-electric-cyan">skip_next</span>
+<span class="font-metadata text-metadata font-bold tracking-wide uppercase">Skip Intro</span>
+</button>
+</div>
+<!-- Bottom Controls Bar -->
+<div class="w-full px-content-margin pb-8 pt-4 bg-gradient-to-t from-surface to-transparent">
+<!-- Timeline Section -->
+<div class="relative group cursor-pointer mb-4 flex items-center h-6">
+<!-- Hover Thumbnail (Hidden by default, shown on timeline hover in a real implementation) -->
+<div class="absolute -top-24 left-1/4 transform -translate-x-1/2 w-40 aspect-video bg-surface-container-high rounded-lg border border-white/10 overflow-hidden shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-30">
+<img class="w-full h-full object-cover" data-alt="A small preview thumbnail showing a close-up of an anime character's eye reflecting a glowing neon city skyline. Colors are deep slate and bright electric cyan. High contrast and sharp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8hyhnR137Cko_SPxKKiYe0R8l81DQnjg20mPr5K4_0T7ax1efIqwN-DHKZzGjDrJ0rNEvu7t3dvofpxlBaPiOyxrc0PjGMwuMujQgog3ONeB8XTZHTvoWEXjByAirTtsQ0xv6k2zyVn_a1wR7kSj-45Z08fGBvtycZC2LXosADnsTENr_m4-P6YWeSOUXr1gtUR5sOd0Ycfjj19ovEP6io7rz1zRUiMI3WhOe7lWAmM6nicR7PzLBBGKyOaPGCzieqZjF86j2K8E"/>
+<div class="absolute bottom-0 w-full bg-surface/80 backdrop-blur text-center py-1">
+<span class="font-label-sm text-label-sm text-white">08:24</span>
+</div>
+</div>
+<!-- Track Background -->
+<div class="absolute w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<!-- Buffered -->
+<div class="absolute left-0 top-0 h-full w-[60%] bg-surface-variant"></div>
+<!-- Played Progress -->
+<div class="absolute left-0 top-0 h-full w-[35%] bg-electric-cyan cyan-glow"></div>
+</div>
+<!-- Chapter Markers -->
+<div class="absolute w-full h-full pointer-events-none">
+<div class="absolute left-[15%] top-1/2 -translate-y-1/2 w-1 h-3 bg-surface rounded-full"></div>
+<div class="absolute left-[45%] top-1/2 -translate-y-1/2 w-1 h-3 bg-surface rounded-full"></div>
+<div class="absolute left-[85%] top-1/2 -translate-y-1/2 w-1 h-3 bg-surface rounded-full"></div>
+</div>
+<!-- Playhead Knob -->
+<div class="absolute left-[35%] top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_10px_rgba(34,211,238,0.8)] opacity-0 group-hover:opacity-100 transition-opacity scale-0 group-hover:scale-100 transform -translate-x-1/2"></div>
+</div>
+<!-- Controls Panel -->
+<div class="glass-panel rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+<!-- Left Controls (Playback & Time) -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">replay_10</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-electric-cyan text-surface flex items-center justify-center hover:bg-tertiary transition-colors shadow-lg shadow-electric-cyan/20">
+<span class="material-symbols-outlined filled text-[32px]">pause</span>
+</button>
+<button class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">forward_10</span>
+</button>
+</div>
+<!-- Volume -->
+<div class="flex items-center gap-2 group/vol hidden md:flex">
+<button class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">volume_up</span>
+</button>
+<div class="w-0 group-hover/vol:w-24 overflow-hidden transition-all duration-300 flex items-center h-6">
+<div class="w-full h-1 bg-surface-container-highest rounded-full relative">
+<div class="absolute left-0 top-0 h-full w-[70%] bg-white rounded-full"></div>
+<div class="absolute left-[70%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full -translate-x-1/2"></div>
+</div>
+</div>
+</div>
+<!-- Time -->
+<div class="font-label-sm text-label-sm text-on-surface-variant hidden sm:block tracking-wider">
+<span class="text-white">08:24</span> <span class="mx-1">/</span> 24:10
+                    </div>
+</div>
+<!-- Center Controls (Contextual Meta) -->
+<div class="hidden lg:flex items-center gap-4 border-x border-white/5 px-6">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-electric-cyan transition-colors group">
+<span class="material-symbols-outlined text-[20px]">subtitles</span>
+<span class="font-metadata text-metadata hidden xl:block">EN / JP</span>
+</button>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-electric-cyan transition-colors group">
+<span class="material-symbols-outlined text-[20px]">list</span>
+<span class="font-metadata text-metadata hidden xl:block">Episodes</span>
+</button>
+</div>
+<!-- Right Controls (Tools & View) -->
+<div class="flex items-center gap-5">
+<button class="text-on-surface-variant hover:text-white transition-colors relative" title="Settings">
+<span class="material-symbols-outlined">settings</span>
+<!-- Notification dot for auto-quality adjustment -->
+<span class="absolute top-0 right-0 w-2 h-2 bg-electric-cyan rounded-full border border-surface-container"></span>
+</button>
+<button class="text-on-surface-variant hover:text-white transition-colors hidden sm:block" title="Theater Mode">
+<span class="material-symbols-outlined">branding_watermark</span>
+</button>
+<button class="text-on-surface-variant hover:text-white transition-colors" title="Fullscreen">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Simple interaction script to simulate UI hiding -->
+<script>
+        let timeout;
+        const uiLayer = document.getElementById('player-ui');
+        
+        function resetTimer() {
+            uiLayer.style.opacity = '1';
+            uiLayer.style.cursor = 'default';
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                uiLayer.style.opacity = '0';
+                uiLayer.style.cursor = 'none';
+            }, 3000);
+        }
+
+        document.addEventListener('mousemove', resetTimer);
+        document.addEventListener('keypress', resetTimer);
+        document.addEventListener('touchstart', resetTimer);
+        
+        // Initial setup
+        resetTimer();
+    </script>
+</body></html>

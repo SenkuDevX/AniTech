@@ -1,0 +1,1168 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Core User System
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  username      String    @unique
+  displayName   String?
+  passwordHash  String    @map("password_hash")
+  avatarUrl     String?   @map("avatar_url")
+  bannerUrl     String?   @map("banner_url")
+  bio           String?
+  role          UserRole  @default(USER)
+  status        UserStatus @default(ACTIVE)
+  isGuest       Boolean   @default(false) @map("is_guest")
+  lastActiveAt  DateTime? @map("last_active_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+
+  // Relations
+  sessions         Session[]
+  devices          Device[]
+  watchlists       Watchlist[]
+  ratings          Rating[]
+  reviews         Review[]
+  reviewLikes     ReviewLike[]
+  comments         Comment[]
+  reactions        Reaction[]
+  activities       Activity[]
+  followsFollowing Follow[] @relation("Following")
+  followsFollowed  Follow[] @relation("Followers")
+  friendshipsSent     Friendship[] @relation("Sent")
+  friendshipsReceived Friendship[] @relation("Received")
+  notifications    Notification[]
+  downloads        Download[]
+  watchHistory     WatchHistory[]
+  watchPartiesHosted  WatchParty[]
+  watchPartiesJoined  WatchPartyParticipant[]
+  watchPartyMessages  WatchPartyMessage[]
+  recommendations  Recommendation[]
+  plugins          Plugin[]
+  themes           Theme[]
+  settings         UserSettings?
+  achievements     UserAchievement[]
+  searchQueries    SearchQuery[]
+  collections      Collection[]
+  news             News[] @relation("AuthoredNews")
+  passwordResetTokens PasswordResetToken[]
+  syncEvents       SyncEvent[]
+  localMedia       LocalMedia[]
+
+  @@index([username])
+  @@index([email])
+  @@index([role])
+  @@index([status])
+  @@index([lastActiveAt])
+  @@map("users")
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  DEACTIVATED
+}
+
+// Session & Device Management
+model Session {
+  id           String    @id @default(cuid())
+  userId       String    @map("user_id")
+  deviceId     String?   @map("device_id")
+  token        String    @unique
+  refreshToken String    @unique @map("refresh_token")
+  expiresAt    DateTime  @map("expires_at")
+  refreshedAt  DateTime? @map("refreshed_at")
+  ipAddress    String?   @map("ip_address")
+  userAgent    String?   @map("user_agent")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device Device? @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([token])
+  @@index([refreshToken])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model Device {
+  id          String       @id @default(cuid())
+  userId      String       @map("user_id")
+  name        String
+  type        DeviceType
+  os          String?
+  osVersion   String?      @map("os_version")
+  appVersion  String?      @map("app_version")
+  lastIp      String?      @map("last_ip")
+  trusted     Boolean      @default(false)
+  isActive    Boolean      @default(true) @map("is_active")
+  lastUsedAt  DateTime     @default(now()) @map("last_used_at")
+  createdAt   DateTime     @default(now()) @map("created_at")
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions Session[]
+
+  @@index([userId])
+  @@map("devices")
+}
+
+enum DeviceType {
+  DESKTOP
+  MOBILE
+  TABLET
+  TV
+  WEB
+  UNKNOWN
+}
+
+// Anime Metadata System
+model Anime {
+  id              String           @id @default(cuid())
+  anilistId       Int?             @unique @map("anilist_id")
+  malId           Int?             @unique @map("mal_id")
+  title           String
+  titleEn         String?          @map("title_en")
+  titleJp         String?          @map("title_jp")
+  titleRomanji    String?          @map("title_romanji")
+  slug            String           @unique
+  synopsis        String?
+  description     String?
+  coverImage      String?          @map("cover_image")
+  bannerImage     String?          @map("banner_image")
+  posterImage     String?          @map("poster_image")
+  trailerUrl      String?          @map("trailer_url")
+  format          AnimeFormat?
+  status          AnimeStatus
+  season          AnimeSeason?
+  seasonYear      Int?             @map("season_year")
+  episodes        Int?
+  episodesAired   Int?             @map("episodes_aired")
+  duration        Int? // in minutes
+  chapters        Int?
+  volumes         Int?
+  source          MediaSource?
+  rating          String?
+  avgScore        Float?           @map("avg_score")
+  popularity      Int?             @default(0)
+  startDate       DateTime?        @map("start_date")
+  endDate         DateTime?        @map("end_date")
+  nextAiringAt    DateTime?        @map("next_airing_at")
+  isAdult         Boolean          @default(false) @map("is_adult")
+  isHiddenGem     Boolean          @default(false) @map("is_hidden_gem")
+  isSimulcast     Boolean          @default(false) @map("is_simulcast")
+  airingSchedule  Json?            @map("airing_schedule")
+  externalLinks   Json?            @map("external_links")
+  tags            String[]
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+  lastSyncedAt    DateTime?        @map("last_synced_at")
+
+  // Relations
+  genres          AnimeGenre[]
+  studios         AnimeStudio[]
+  staff           AnimeStaff[]
+  episodesList    Episode[]
+  chapters        Chapter[]
+  characters      Character[]
+  relations       AnimeRelation[] @relation("AnimeRelations")
+  relatedTo       AnimeRelation[] @relation("RelatedAnime")
+  watchlists      Watchlist[]
+  ratings         Rating[]
+  reviews         Review[]
+  recommendations Recommendation[]
+  collectionItems CollectionItem[]
+  downloads       Download[]
+  watchHistory    WatchHistory[]
+  localMedia      LocalMedia[]
+  searchDocuments SearchDocument[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([format])
+  @@index([season, seasonYear])
+  @@index([popularity])
+  @@index([avgScore])
+  @@index([isAdult])
+  @@index([isSimulcast])
+  @@index([nextAiringAt])
+  @@index([source])
+  @@index([title, titleEn, titleJp, titleRomanji, synopsis])
+  @@map("anime")
+}
+
+enum AnimeFormat {
+  TV
+  TV_SHORT
+  MOVIE
+  SPECIAL
+  OVA
+  ONA
+  MUSIC
+  MANGA
+  NOVEL
+  ONE_SHOT
+  DOUJINSHI
+  MANHWA
+  MANHUA
+}
+
+enum AnimeStatus {
+  NOT_YET_RELEASED
+  RELEASING
+  FINISHED
+  CANCELLED
+  HIATUS
+}
+
+enum AnimeSeason {
+  WINTER
+  SPRING
+  SUMMER
+  FALL
+}
+
+enum MediaSource {
+  ORIGINAL
+  MANGA
+  LIGHT_NOVEL
+  VISUAL_NOVEL
+  GAME
+  NOVEL
+  DOUJINSHI
+  ANIME
+  OTHER
+}
+
+model Episode {
+  id            String    @id @default(cuid())
+  animeId       String    @map("anime_id")
+  number        Int
+  title         String?
+  titleJp       String?   @map("title_jp")
+  synopsis      String?
+  duration      Int?      // in seconds
+  thumbnail     String?
+  airedAt       DateTime? @map("aired_at")
+  isFiller      Boolean   @default(false) @map("is_filler")
+  isRecap       Boolean   @default(false) @map("is_recap")
+  isSpecial     Boolean   @default(false) @map("is_special")
+  introStart    Int?      @map("intro_start")
+  introEnd      Int?      @map("intro_end")
+  outroStart    Int?      @map("outro_start")
+  outroEnd      Int?      @map("outro_end")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  anime         Anime    @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  watchHistory  WatchHistory[]
+  downloadItems DownloadItem[]
+  subtitleFiles SubtitleFile[]
+
+  @@index([animeId])
+  @@index([animeId, number])
+  @@unique([animeId, number])
+  @@map("episodes")
+}
+
+model Genre {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String?
+  color       String?
+  icon        String?
+  popularity  Int    @default(0)
+
+  anime AnimeGenre[]
+
+  @@map("genres")
+}
+
+model AnimeGenre {
+  animeId String @map("anime_id")
+  genreId String @map("genre_id")
+
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([animeId, genreId])
+  @@map("anime_genres")
+}
+
+model Studio {
+  id         String @id @default(cuid())
+  anilistId  Int?   @unique @map("anilist_id")
+  name       String
+  isMain     Boolean @default(false) @map("is_main")
+
+  anime AnimeStudio[]
+
+  @@map("studios")
+}
+
+model AnimeStudio {
+  animeId String @map("anime_id")
+  studioId String @map("studio_id")
+
+  anime  Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  studio Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
+
+  @@id([animeId, studioId])
+  @@map("anime_studios")
+}
+
+model Character {
+  id          String @id @default(cuid())
+  animeId     String @map("anime_id")
+  anilistId   Int?   @unique @map("anilist_id")
+  name        String
+  nameJp      String? @map("name_jp")
+  image       String?
+  description String?
+  role        CharacterRole @default(SUPPORTING)
+  voiceActors Json?   @map("voice_actors")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@index([animeId])
+  @@index([role])
+  @@map("characters")
+}
+
+enum CharacterRole {
+  MAIN
+  SUPPORTING
+  BACKGROUND
+}
+
+model AnimeRelation {
+  id             String @id @default(cuid())
+  animeId        String @map("anime_id")
+  relatedAnimeId String @map("related_anime_id")
+  relationType   RelationType @map("relation_type")
+
+  anime        Anime @relation("AnimeRelations", fields: [animeId], references: [id], onDelete: Cascade)
+  relatedAnime Anime @relation("RelatedAnime", fields: [relatedAnimeId], references: [id], onDelete: Cascade)
+
+  @@unique([animeId, relatedAnimeId])
+  @@map("anime_relations")
+}
+
+enum RelationType {
+  ADAPTATION
+  PREQUEL
+  SEQUEL
+  PARENT
+  SIDE_STORY
+  CHARACTER
+  SUMMARY
+  ALTERNATIVE
+  SPIN_OFF
+  OTHER
+}
+
+model AnimeStaff {
+  id       String @id @default(cuid())
+  animeId  String @map("anime_id")
+  name     String
+  nameJp   String? @map("name_jp")
+  role     String
+  image    String?
+
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@index([animeId])
+  @@map("anime_staff")
+}
+
+// Watchlist & User Progress System
+model Watchlist {
+  id          String         @id @default(cuid())
+  userId      String         @map("user_id")
+  animeId     String         @map("anime_id")
+  status      WatchStatus
+  score       Int?           // 1-10
+  progress    Int            @default(0) // episodes watched
+  totalEps    Int?           @map("total_eps")
+  rewatchCount Int          @default(0) @map("rewatch_count")
+  startDate   DateTime?      @map("start_date")
+  finishDate  DateTime?      @map("finish_date")
+  notes       String?
+  isPrivate   Boolean        @default(false) @map("is_private")
+  isFavorite  Boolean        @default(false) @map("is_favorite")
+  customTags  String[]       @map("custom_tags")
+  sortOrder   Int            @default(0) @map("sort_order")
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, animeId])
+  @@index([animeId])
+  @@index([userId, status])
+  @@index([userId, isFavorite])
+  @@index([userId, animeId])
+  @@map("watchlists")
+}
+
+enum WatchStatus {
+  PLAN_TO_WATCH
+  WATCHING
+  COMPLETED
+  ON_HOLD
+  DROPPED
+}
+
+model WatchHistory {
+  id           String    @id @default(cuid())
+  userId       String    @map("user_id")
+  animeId      String    @map("anime_id")
+  episodeId    String    @map("episode_id")
+  progress     Int       @default(0) // seconds watched
+  duration     Int?      // total seconds
+  completed    Boolean   @default(false)
+  watchSource  WatchSource @default(STREAMING) @map("watch_source")
+  playbackSpeed Float    @default(1.0) @map("playback_speed")
+  subtitleLang String?   @map("subtitle_lang")
+  quality      String?
+  deviceId     String?   @map("device_id")
+  watchedAt    DateTime  @default(now()) @map("watched_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime   Anime   @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@index([userId, animeId])
+  @@index([userId, watchedAt])
+  @@index([userId, completed])
+  @@index([episodeId])
+  @@map("watch_history")
+}
+
+enum WatchSource {
+  STREAMING
+  LOCAL
+  DOWNLOADED
+}
+
+model Rating {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  animeId   String    @map("anime_id")
+  score     Int       // 1-10
+  review    String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, animeId])
+  @@map("ratings")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  animeId   String   @map("anime_id")
+  title     String
+  content   String
+  score     Int      // 1-10
+  isSpoiler Boolean  @default(false) @map("is_spoiler")
+  isPrivate Boolean  @default(false) @map("is_private")
+  likes     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime   Anime   @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  likesList ReviewLike[]
+
+  @@index([animeId, createdAt])
+  @@map("reviews")
+}
+
+model ReviewLike {
+  id       String @id @default(cuid())
+  reviewId String @map("review_id")
+  userId   String @map("user_id")
+
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId])
+  @@unique([reviewId, userId])
+  @@map("review_likes")
+}
+
+// Social System
+model Follow {
+  id          String @id @default(cuid())
+  followerId  String @map("follower_id")
+  followingId String @map("following_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  follower  User @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@map("follows")
+}
+
+model Friendship {
+  id         String          @id @default(cuid())
+  senderId   String          @map("sender_id")
+  receiverId String          @map("receiver_id")
+  status     FriendshipStatus
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
+
+  sender   User @relation("Sent", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("Received", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@map("friendships")
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  BLOCKED
+}
+
+model Activity {
+  id          String       @id @default(cuid())
+  userId      String       @map("user_id")
+  type        ActivityType
+  targetType  String       @map("target_type")
+  targetId    String       @map("target_id")
+  content     Json?
+  isPrivate   Boolean      @default(false) @map("is_private")
+  createdAt   DateTime     @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([targetType, targetId])
+  @@map("activities")
+}
+
+enum ActivityType {
+  WATCHED_EPISODE
+  COMPLETED_ANIME
+  RATED_ANIME
+  REVIEWED_ANIME
+  ADDED_TO_WATCHLIST
+  UPDATED_STATUS
+  JOINED_WATCH_PARTY
+  CREATED_WATCH_PARTY
+  FAVORITED_ANIME
+  ACHIEVEMENT_EARNED
+  FOLLOWED_USER
+  FRIEND_REQUEST
+  COMMENTED
+  REACTED
+  CUSTOM
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  targetType String  @map("target_type")
+  targetId  String   @map("target_id")
+  parentId  String?  @map("parent_id")
+  content   String
+  isSpoiler Boolean  @default(false) @map("is_spoiler")
+  likes     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent   Comment?  @relation("Replies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  Comment[] @relation("Replies")
+  reactions Reaction[]
+
+  @@index([targetType, targetId, createdAt])
+  @@index([userId])
+  @@index([parentId])
+  @@map("comments")
+}
+
+model Reaction {
+  id          String       @id @default(cuid())
+  userId      String       @map("user_id")
+  commentId   String?      @map("comment_id")
+  targetType  String?      @map("target_type")
+  targetId    String?      @map("target_id")
+  emoji       String
+  createdAt   DateTime     @default(now()) @map("created_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, commentId, targetType, targetId, emoji])
+  @@map("reactions")
+}
+
+// Watch Party System
+model WatchParty {
+  id          String           @id @default(cuid())
+  hostId      String           @map("host_id")
+  animeId     String           @map("anime_id")
+  episodeId   String           @map("episode_id")
+  name        String
+  description String?
+  isPrivate   Boolean          @default(false) @map("is_private")
+  password    String?
+  maxUsers    Int              @default(50) @map("max_users")
+  status      WatchPartyStatus @default(ACTIVE)
+  startedAt   DateTime?        @map("started_at")
+  endedAt     DateTime?        @map("ended_at")
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+
+  host        User                    @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  participants WatchPartyParticipant[]
+  messages    WatchPartyMessage[]
+
+  @@index([hostId, status])
+  @@index([animeId])
+  @@map("watch_parties")
+}
+
+enum WatchPartyStatus {
+  ACTIVE
+  PAUSED
+  ENDED
+}
+
+model WatchPartyParticipant {
+  id          String   @id @default(cuid())
+  partyId     String   @map("party_id")
+  userId      String   @map("user_id")
+  role        PartyRole @default(VIEWER)
+  isReady     Boolean  @default(false) @map("is_ready")
+  joinedAt    DateTime @default(now()) @map("joined_at")
+  leftAt      DateTime? @map("left_at")
+
+  party WatchParty @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([partyId, userId])
+  @@index([partyId])
+  @@map("watch_party_participants")
+}
+
+enum PartyRole {
+  HOST
+  CO_HOST
+  VIEWER
+}
+
+model WatchPartyMessage {
+  id        String   @id @default(cuid())
+  partyId   String   @map("party_id")
+  userId    String   @map("user_id")
+  content   String
+  type      MessageType @default(TEXT)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  party WatchParty @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  user  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([partyId, createdAt])
+  @@map("watch_party_messages")
+}
+
+enum MessageType {
+  TEXT
+  REACTION
+  SYSTEM
+  PLAYBACK_EVENT
+}
+
+// Notification System
+model Notification {
+  id          String           @id @default(cuid())
+  userId      String           @map("user_id")
+  type        NotificationType
+  title       String
+  body        String
+  data        Json?
+  isRead      Boolean          @default(false) @map("is_read")
+  priority    NotificationPriority @default(NORMAL)
+  createdAt   DateTime         @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt])
+  @@index([type])
+  @@index([userId, type, createdAt])
+  @@map("notifications")
+}
+
+enum NotificationType {
+  EPISODE_AIRED
+  NEW_FOLLOWER
+  FRIEND_REQUEST
+  WATCH_PARTY_INVITE
+  WATCH_PARTY_STARTED
+  REVIEW_LIKED
+  COMMENT_REPLY
+  ACHIEVEMENT_EARNED
+  RECOMMENDATION
+  SYSTEM_ANNOUNCEMENT
+  PLUGIN_UPDATE
+  DOWNLOAD_COMPLETE
+  SYNC_COMPLETE
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  CRITICAL
+}
+
+// Download System
+model Download {
+  id          String         @id @default(cuid())
+  userId      String         @map("user_id")
+  animeId     String         @map("anime_id")
+  sourceUrl   String         @map("source_url")
+  filePath    String?        @map("file_path")
+  fileSize    BigInt?        @map("file_size")
+  downloaded  BigInt         @default(0) @map("downloaded")
+  status      DownloadStatus @default(QUEUED)
+  priority    Int            @default(0)
+  quality     String?
+  format      String?
+  error       String?
+  startedAt   DateTime?      @map("started_at")
+  completedAt DateTime?      @map("completed_at")
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  items DownloadItem[]
+
+  @@index([userId, status])
+  @@index([animeId])
+  @@map("downloads")
+}
+
+model DownloadItem {
+  id           String @id @default(cuid())
+  downloadId   String @map("download_id")
+  episodeId    String? @map("episode_id")
+  sourceUrl    String @map("source_url")
+  filePath     String? @map("file_path")
+  fileSize     BigInt? @map("file_size")
+  downloaded   BigInt @default(0)
+  status       DownloadStatus @default(QUEUED)
+  quality      String?
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  download Download @relation(fields: [downloadId], references: [id], onDelete: Cascade)
+  episode  Episode?  @relation(fields: [episodeId], references: [id], onDelete: SetNull)
+
+  @@index([episodeId])
+  @@map("download_items")
+}
+
+enum DownloadStatus {
+  QUEUED
+  DOWNLOADING
+  PAUSED
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+// Plugin System
+model Plugin {
+  id            String       @id @default(cuid())
+  userId        String?      @map("user_id")
+  manifest      Json
+  name          String
+  version       String
+  author        String
+  description   String?
+  icon          String?
+  isEnabled     Boolean      @default(true) @map("is_enabled")
+  isOfficial    Boolean      @default(false) @map("is_official")
+  permissions   String[]
+  entryPoint    String       @map("entry_point")
+  config        Json?
+  configSchema  Json?        @map("config_schema")
+  rating        Float        @default(0)
+  downloadCount Int          @default(0) @map("download_count")
+  installedAt   DateTime     @default(now()) @map("installed_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([isEnabled])
+  @@map("plugins")
+}
+
+// Theme System
+model Theme {
+  id          String   @id @default(cuid())
+  userId      String?  @map("user_id")
+  name        String
+  description String?
+  isActive    Boolean  @default(false) @map("is_active")
+  colors      Json
+  typography  Json?
+  spacing     Json?
+  shapes      Json?
+  isDefault   Boolean  @default(false) @map("is_default")
+  isPublic    Boolean  @default(false) @map("is_public")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isActive])
+  @@map("themes")
+}
+
+// Recommendation Engine
+model Recommendation {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  animeId     String   @map("anime_id")
+  score       Float
+  reason      String?
+  algorithm   String
+  isClicked   Boolean  @default(false) @map("is_clicked")
+  isDismissed Boolean  @default(false) @map("is_dismissed")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, animeId])
+  @@index([userId, score])
+  @@map("recommendations")
+}
+
+// Search System
+model SearchQuery {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  query     String
+  filters   Json?
+  results   Int      @default(0)
+  clickedId String?  @map("clicked_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([query])
+  @@map("search_queries")
+}
+
+model SearchDocument {
+  id        String   @id @default(cuid())
+  animeId   String   @map("anime_id")
+  document  String
+  tokens    String[]
+  language  String   @default("en")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@index([tokens])
+  @@map("search_documents")
+}
+
+// Achievement System
+model Achievement {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String
+  icon        String
+  category    AchievementCategory
+  condition   Json
+  points      Int    @default(0)
+  rarity      Rarity @default(COMMON)
+
+  users UserAchievement[]
+
+  @@map("achievements")
+}
+
+enum AchievementCategory {
+  WATCHING
+  SOCIAL
+  COLLECTION
+  COMMUNITY
+  SPECIAL
+}
+
+enum Rarity {
+  COMMON
+  UNCOMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+model UserAchievement {
+  id            String   @id @default(cuid())
+  userId        String   @map("user_id")
+  achievementId String   @map("achievement_id")
+  progress      Int      @default(0)
+  isCompleted   Boolean  @default(false) @map("is_completed")
+  earnedAt      DateTime? @map("earned_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+// User Settings & Preferences
+model UserSettings {
+  id                        String   @id @default(cuid())
+  userId                    String   @unique @map("user_id")
+  language                  String   @default("en")
+  subtitleLanguage          String   @default("en") @map("subtitle_language")
+  subtitleFontSize          Int      @default(16) @map("subtitle_font_size")
+  subtitleColor             String   @default("#FFFFFF") @map("subtitle_color")
+  subtitleBgOpacity         Float    @default(0.5) @map("subtitle_bg_opacity")
+  subtitleOffset            Int      @default(0) @map("subtitle_offset")
+  themeId                   String?  @map("theme_id")
+  autoSkipIntro             Boolean  @default(false) @map("auto_skip_intro")
+  autoSkipOutro             Boolean  @default(false) @map("auto_skip_outro")
+  autoNextEpisode           Boolean  @default(true) @map("auto_next_episode")
+  defaultQuality            String   @default("auto") @map("default_quality")
+  defaultPlaybackSpeed      Float    @default(1.0) @map("default_playback_speed")
+  volume                    Float    @default(1.0)
+  muted                     Boolean  @default(false)
+  enableNotifications       Boolean  @default(true) @map("enable_notifications")
+  enableDesktopNotifications Boolean @default(true) @map("enable_desktop_notifications")
+  privacyProfile            Privacy  @default(PUBLIC) @map("privacy_profile")
+  privacyWatchlist          Privacy  @default(FRIENDS) @map("privacy_watchlist")
+  privacyActivity           Privacy  @default(FRIENDS) @map("privacy_activity")
+  showAdultContent          Boolean  @default(false) @map("show_adult_content")
+  dataAnalytics             Boolean  @default(true) @map("data_analytics")
+  syncEnabled               Boolean  @default(true) @map("sync_enabled")
+  autoDownload              Boolean  @default(false) @map("auto_download")
+  preferredProviders        String[] @map("preferred_providers")
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
+}
+
+enum Privacy {
+  PUBLIC
+  FRIENDS
+  PRIVATE
+}
+
+// Local Media System
+model LocalMedia {
+  id            String   @id @default(cuid())
+  userId        String   @map("user_id")
+  animeId       String?  @map("anime_id")
+  filePath      String   @map("file_path")
+  fileName      String   @map("file_name")
+  fileSize      BigInt   @map("file_size")
+  fileHash      String   @map("file_hash")
+  format        String
+  duration      Int?     // seconds
+  resolution    String?
+  codec         String?
+  bitrate       Int?
+  audioTracks   Json?    @map("audio_tracks")
+  subtitleTracks Json?  @map("subtitle_tracks")
+  thumbnailPath String?  @map("thumbnail_path")
+  isIndexed     Boolean  @default(false) @map("is_indexed")
+  scannedAt     DateTime @default(now()) @map("scanned_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime Anime? @relation(fields: [animeId], references: [id], onDelete: SetNull)
+
+  @@index([userId, fileHash])
+  @@index([fileHash])
+  @@index([userId, animeId])
+  @@map("local_media")
+}
+
+// Subtitle System
+model SubtitleFile {
+  id          String   @id @default(cuid())
+  episodeId   String   @map("episode_id")
+  language    String
+  format      String   // ass, srt, vtt
+  fileUrl     String   @map("file_url")
+  isDefault   Boolean  @default(false) @map("is_default")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@index([episodeId, language])
+  @@map("subtitle_files")
+}
+
+// Sync System
+model SyncEvent {
+  id        String     @id @default(cuid())
+  userId    String     @map("user_id")
+  deviceId  String?    @map("device_id")
+  entityType String    @map("entity_type")
+  entityId  String     @map("entity_id")
+  action    SyncAction
+  payload   Json
+  synced    Boolean    @default(false)
+  createdAt DateTime   @default(now()) @map("created_at")
+  syncedAt  DateTime?  @map("synced_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, synced, createdAt])
+  @@map("sync_events")
+}
+
+enum SyncAction {
+  CREATE
+  UPDATE
+  DELETE
+}
+
+// Collection System (User-curated lists)
+model Collection {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  name        String
+  description String?
+  coverImage  String?  @map("cover_image")
+  isPublic    Boolean  @default(true) @map("is_public")
+  isPinned    Boolean  @default(false) @map("is_pinned")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items CollectionItem[]
+
+  @@index([userId, sortOrder])
+  @@index([userId, isPublic])
+  @@map("collections")
+}
+
+model CollectionItem {
+  id           String   @id @default(cuid())
+  collectionId String   @map("collection_id")
+  animeId      String   @map("anime_id")
+  notes        String?
+  sortOrder    Int      @default(0) @map("sort_order")
+  addedAt      DateTime @default(now()) @map("added_at")
+
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  anime      Anime      @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, animeId])
+  @@index([collectionId])
+  @@map("collection_items")
+}
+
+// News & Announcements
+model News {
+  id        String      @id @default(cuid())
+  title     String
+  slug      String      @unique
+  excerpt   String?
+  content   String
+  coverImage String?    @map("cover_image")
+  authorId  String?     @map("author_id")
+  category  NewsCategory @default(ANNOUNCEMENT)
+  tags      String[]
+  isPinned  Boolean     @default(false) @map("is_pinned")
+  isPublished Boolean   @default(false) @map("is_published")
+  publishedAt DateTime? @map("published_at")
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  author User? @relation("AuthoredNews", fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([slug])
+  @@index([category, publishedAt])
+  @@index([isPublished, publishedAt])
+  @@map("news")
+}
+
+enum NewsCategory {
+  ANNOUNCEMENT
+  RELEASE
+  FEATURE
+  COMMUNITY
+  GUIDE
+  MAINTENANCE
+}
+
+// Password Reset Tokens
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model Chapter {
+  id        String @id @default(cuid())
+  animeId   String @map("anime_id")
+  anime     Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  number    Int
+  title     String
+  pages     Page[]
+
+  @@map("chapters")
+}
+
+model Page {
+  id        String  @id @default(cuid())
+  chapterId String  @map("chapter_id")
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  page      Int
+  imageUrl  String  @map("image_url")
+
+  @@map("pages")
+}

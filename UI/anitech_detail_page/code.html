@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AniTech OS - Echoes of the Void</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#233144",
+                        "tertiary-fixed": "#a2eeff",
+                        "surface-container-highest": "#2a3548",
+                        "surface-bright": "#2f3a4c",
+                        "secondary-container": "#3c4a5e",
+                        "on-tertiary": "#00363e",
+                        "on-primary-fixed": "#131b2e",
+                        "azure-blue": "#3B82F6",
+                        "electric-cyan": "#22D3EE",
+                        "pale-gold": "#FDE68A",
+                        "inverse-surface": "#d8e3fb",
+                        "outline-variant": "#45464d",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "primary": "#bec6e0",
+                        "on-primary": "#283044",
+                        "soft-violet": "#A78BFA",
+                        "inverse-on-surface": "#263143",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container": "#152031",
+                        "outline": "#909097",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "deep-indigo": "#312E81",
+                        "on-background": "#d8e3fb",
+                        "primary-container": "#0f172a",
+                        "on-secondary-container": "#abb9d2",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-tertiary-fixed": "#001f25",
+                        "surface-variant": "#2a3548",
+                        "surface-dim": "#081425",
+                        "tertiary": "#2fd9f4",
+                        "on-primary-container": "#798098",
+                        "surface-container-low": "#111c2d",
+                        "surface": "#081425",
+                        "secondary-fixed": "#d5e3fd",
+                        "background": "#081425",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "surface-container-lowest": "#040e1f",
+                        "surface-container-high": "#1f2a3c",
+                        "muted-charcoal": "#0F172A",
+                        "on-tertiary-container": "#008ea1",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#565e74",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "secondary": "#b9c7e0",
+                        "tertiary-fixed-dim": "#2fd9f4",
+                        "tertiary-container": "#001b20",
+                        "surface-tint": "#bec6e0",
+                        "on-surface": "#d8e3fb",
+                        "on-error": "#690005",
+                        "subtle-magenta": "#D946EF",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "sidebar-width": "260px",
+                        "content-margin": "40px",
+                        "grid-unit": "8px",
+                        "sidebar-collapsed": "80px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Sora"],
+                        "metadata": ["Hanken Grotesk"],
+                        "headline-lg": ["Sora"],
+                        "display-xl-mobile": ["Sora"],
+                        "display-xl": ["Sora"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "metadata": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-xl-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-surface'); }
+        .glass-panel { background: rgba(42, 53, 72, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); }
+        .gradient-text { background: linear-gradient(to right, theme('colors.soft-violet'), theme('colors.electric-cyan')); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .ambient-shadow { box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .card-hover:hover { transform: scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.6); z-index: 10; }
+        /* Hero Masking */
+        .hero-mask { mask-image: linear-gradient(to bottom, black 50%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%); }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-transparent bg-surface/40 backdrop-blur-md border-b border-white/5 flex justify-between items-center px-content-margin z-40 transition-all duration-300">
+<div class="flex items-center gap-8">
+<h1 class="font-headline-md text-headline-md font-black text-on-surface tracking-tight">AniTech OS</h1>
+<nav class="hidden md:flex gap-6">
+<a class="font-metadata text-metadata text-on-surface-variant hover:text-primary transition-colors" href="#">Simulcasts</a>
+<a class="font-metadata text-metadata text-primary border-b-2 border-primary pb-1" href="#">Movies</a>
+<a class="font-metadata text-metadata text-on-surface-variant hover:text-primary transition-colors" href="#">Trending</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4 text-on-surface">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="search">search</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+<div class="h-8 w-px bg-white/10"></div>
+<button class="font-metadata text-metadata bg-gradient-to-r from-azure-blue to-electric-cyan text-on-primary-fixed px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-cyan-500/20 transition-all">Upgrade</button>
+<button class="font-metadata text-metadata text-on-surface-variant hover:text-on-surface transition-colors">Sign Out</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low/80 backdrop-blur-xl border-r border-white/5 shadow-2xl flex flex-col h-full p-4 gap-2 z-50">
+<div class="mb-8 mt-4 px-4">
+<div class="font-headline-md text-headline-md font-bold text-soft-violet">AniTech OS</div>
+<div class="font-metadata text-metadata text-on-surface-variant mt-1 text-[10px] uppercase tracking-widest">Premium Media Suite</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="font-label-sm text-label-sm tracking-wider text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="home">home</span> Home
+            </a>
+<a class="font-label-sm text-label-sm tracking-wider text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="bookmarks">bookmarks</span> Watchlist
+            </a>
+<a class="font-label-sm text-label-sm tracking-wider text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="newspaper">newspaper</span> News
+            </a>
+<a class="font-label-sm text-label-sm tracking-wider text-soft-violet font-bold flex items-center gap-3 py-3 px-4 rounded-lg bg-surface-variant/30 scale-105 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="video_library" style="font-variation-settings: 'FILL' 1;">video_library</span> Library
+            </a>
+<a class="font-label-sm text-label-sm tracking-wider text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="group">group</span> Community
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 border-t border-white/5 pt-4">
+<a class="font-label-sm text-label-sm tracking-wider text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span> Settings
+            </a>
+<a class="font-label-sm text-label-sm tracking-wider text-on-surface-variant flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-surface-variant/50 hover:text-on-surface transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help_center">help_center</span> Support
+            </a>
+<button class="mt-4 w-full bg-surface-bright text-primary py-3 rounded-lg font-label-sm text-label-sm tracking-wider border border-white/10 hover:bg-surface-variant transition-colors">Go Premium</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-width min-h-screen pb-24">
+<!-- Hero Section -->
+<section class="relative w-full h-[716px] min-h-[600px] flex items-end pb-content-margin">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0 hero-mask">
+<img alt="Cinematic dark fantasy landscape" class="w-full h-full object-cover object-center opacity-60" data-alt="A cinematic, wide-angle shot of a sprawling, dark futuristic city suspended over a bottomless void. The architecture features jagged, brutalist obsidian structures interwoven with glowing, deep violet and cyan energy lines. Thick, atmospheric fog rolls through the lower levels, obscuring the foundations. The sky above is a swirling nebula of dark indigo and soft magenta, lit by a distant, dying star. The lighting is moody and dramatic, casting long shadows that emphasize the high-end, immersive glassmorphism UI style of the AniTech OS design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUMXWwXoAWvzRqMHhXn1SMFOLjKhyDLqap2NBeVc9TYR_t3WtnsmyH2tCQjD4zOgY5uPh85fOOq7ULaM6gO2XFRcpK2vCfwoNVxb--dCx11jJJVTNml2AdyXzYz3-8d-b4It8y5AKn2E2qODobwYJkE-DI9ndNtdkHcscJpe5DOD9t5mZ0KryeSOlES_Hfw1mk0udLCjBXRpXDesQ5B8WNIeWNNU9bE-gkckj44Un32CMam3fwc5Z5uMIfHjrrjOHKXf4emIYoK-s"/>
+<!-- Gradient Overlay for smooth transition to background -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+</div>
+<!-- Hero Content -->
+<div class="relative z-10 px-content-margin w-full max-w-7xl mx-auto flex gap-12 items-end">
+<!-- Poster -->
+<div class="hidden lg:block w-64 shrink-0 rounded-xl overflow-hidden ambient-shadow border border-white/10 group">
+<div class="relative aspect-[2/3]">
+<img alt="Echoes of the Void Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A striking anime poster featuring a solitary figure clad in high-tech, minimalist armor standing on a shattered glass bridge overlooking a vast, dark nebula. The character's armor has glowing cyan accents that contrast sharply with the deep navy and slate background. Above them, a massive, crystalline structure floats ominously. The overall aesthetic is dark fantasy meets cyberpunk, utilizing a moody palette of deep indigos, soft violets, and electric cyans, perfectly matching the premium, cinematic AniTech OS style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbnPEmqDqr3vmKcNtjNpfnblLZO2fEIIdZUPYNKel3l8TIjXYghttL-p-EUgGyc7DOgLGm3tS-CsL1GzjeAOXNNWIXKrIxWDkGYoX80Z5s2lckbi1AKI6FG1jbt43M2OngQMJnb61M-U9uFe7rd6ddVenJAhBujMZVNlT5j4b6NVvKpWO9p9kdJzxjkjiIdHo3qR0v2PorbAM2-dFjL5t5mx49fGsFstT8K5MkJLqKTDI3oGl8XzBaJMPTB5kEet-IHvnLLF-F2CM"/>
+<div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2 py-1 rounded-md flex items-center gap-1 border border-white/10">
+<span class="material-symbols-outlined text-pale-gold text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm text-white">9.2</span>
+</div>
+</div>
+</div>
+<!-- Text & Actions -->
+<div class="flex-1 pb-4">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-surface-bright/80 backdrop-blur-md px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant border border-white/5">Dark Fantasy</span>
+<span class="bg-surface-bright/80 backdrop-blur-md px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant border border-white/5">Seinen</span>
+<span class="bg-surface-bright/80 backdrop-blur-md px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant border border-white/5">Sci-Fi</span>
+<span class="bg-soft-violet/20 px-3 py-1 rounded-full font-label-sm text-label-sm text-soft-violet border border-soft-violet/30">TV Series</span>
+</div>
+<h2 class="font-display-xl text-display-xl text-white mb-2 leading-tight">Echoes of the <span class="gradient-text">Void</span></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mb-8 line-clamp-3">
+                        In a universe slowly collapsing into a dark singularity, humanity's remnants cling to the edges of shattered dimensions. Follow Elara, a Void-walker with the ability to traverse the tears in reality, as she searches for the mythical 'Origin Point'—the only hope to reverse the entropy consuming their world.
+                    </p>
+<div class="flex items-center gap-4">
+<button class="bg-gradient-to-r from-azure-blue to-electric-cyan text-on-primary-fixed font-headline-md text-metadata font-bold px-8 py-4 rounded-xl flex items-center gap-3 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all hover:-translate-y-1">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span> Play Episode 1
+                        </button>
+<button class="glass-panel text-on-surface font-headline-md text-metadata font-bold px-8 py-4 rounded-xl flex items-center gap-3 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span> Add to Watchlist
+                        </button>
+<div class="ml-4 flex items-center gap-4 text-on-surface-variant font-metadata text-metadata">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-wider opacity-70">Studio</span>
+<span class="text-on-surface">MAPPA</span>
+</div>
+<div class="h-8 w-px bg-white/10"></div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-wider opacity-70">Status</span>
+<span class="text-electric-cyan">Airing (Ep 12)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Grid -->
+<div class="px-content-margin max-w-7xl mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Main Column (Episodes) -->
+<div class="lg:col-span-2 space-y-12">
+<!-- Episodes Section -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h3 class="font-headline-lg text-headline-md text-white">Episodes</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-surface-bright text-on-surface hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]" data-icon="grid_view">grid_view</span></button>
+<button class="p-2 rounded-lg bg-primary/20 text-primary border border-primary/30"><span class="material-symbols-outlined text-[20px]" data-icon="view_list">view_list</span></button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Episode Card 1 (Active/Watching) -->
+<div class="glass-panel rounded-xl p-4 flex gap-6 hover:bg-surface-bright/50 transition-colors cursor-pointer group relative overflow-hidden">
+<!-- Progress Bar Base -->
+<div class="absolute bottom-0 left-0 h-1 bg-surface-bright w-full"></div>
+<!-- Progress Bar Active -->
+<div class="absolute bottom-0 left-0 h-1 bg-electric-cyan w-3/4 shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+<div class="w-48 aspect-video rounded-lg overflow-hidden relative shrink-0">
+<img alt="Episode 1 Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A dramatic scene from an anime episode showing a vast, alien landscape illuminated by a giant, shattered moon. The terrain is rocky and barren, rendered in deep navy and cool gray tones, with subtle atmospheric fog. In the foreground, a glowing, crystalline structure juts from the earth, emitting a soft cyan light. The visual style is high-end, cinematic, and moody, perfectly aligned with the dark sci-fi aesthetic of the AniTech OS interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN2jaGtqDKdpMpFFjqAG-y9-7PSMuZzM4M2msHdTAOzMhnMusb5OFKswIs18aXGEFEWO5AgxcTrNFrIbonwJMCAr58vqMlBeJmvX-ZHDliamLmB3xptCV-h9uB8M05C_sSrGr1Du3y7tr39zhYKS0Py4NYT-poEEyOMkLxvVKv96enq42gOWpZB9ngvOHrlbR_z3fBMOz18OVo5QdihwLC130gsiFuhp6gcXDH3e6DMTKWzpTLh31Q4N7YPAUtIkgaEIoAVDz-Uyg"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 text-white">
+<span class="material-symbols-outlined text-[28px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="flex-1 py-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-label-sm text-label-sm text-electric-cyan mb-1">Episode 1</div>
+<span class="font-metadata text-[12px] text-on-surface-variant">24m left</span>
+</div>
+<h4 class="font-headline-md text-[18px] text-white mb-2 group-hover:text-electric-cyan transition-colors">The Shattered Horizon</h4>
+<p class="font-body-md text-[14px] text-on-surface-variant line-clamp-2">Elara discovers a bizarre anomaly at the edge of Sector 4. Meanwhile, the ruling council tightens its grip on the remaining dimensional tethers.</p>
+</div>
+</div>
+<!-- Episode Card 2 -->
+<div class="glass-panel rounded-xl p-4 flex gap-6 hover:bg-surface-bright/50 transition-colors cursor-pointer group">
+<div class="w-48 aspect-video rounded-lg overflow-hidden relative shrink-0">
+<img alt="Episode 2 Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sci-fi anime scene depicting a sleek, futuristic spacecraft navigating through a dense, colorful nebula. The ship is angular and dark, with bright azure thruster trails. The nebula itself is a swirling mass of deep indigo, soft violet, and pale gold gasses, creating a vibrant yet mysterious backdrop. The lighting is cinematic, emphasizing depth and scale, fitting the premium glassmorphism design system of AniTech OS." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2Ljeg_6s-2z4oLMqAK2Rp7Z8VrKtIOxXlPuAZgnnUFZoiN6Aq2S2fFcKlG9ZwCT00ytRIg7dYWqVlVDu0Z_JSbkTrSGKaTAAH8VashAvogWekN3CvXXgqvFahYfgy0tlH-ElYnI7Vw0iLCY1tkbtK1KP73m0dNZ1NPPkG1xYsQIh0TlwOj4_1_gItzcSBqrQmTDBVjvW-BiPwtSUyOcdEjUT0tM3A9NR-jx29PQxRBIgpJ03Jollf10gs9xQxsUmflJaraU6i7DE"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 text-white">
+<span class="material-symbols-outlined text-[28px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="flex-1 py-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-label-sm text-label-sm text-on-surface-variant mb-1">Episode 2</div>
+</div>
+<h4 class="font-headline-md text-[18px] text-white mb-2 group-hover:text-electric-cyan transition-colors">Echoes in the Dark</h4>
+<p class="font-body-md text-[14px] text-on-surface-variant line-clamp-2">A distress signal from a supposedly dead zone leads the crew into a trap set by remnants of the old empire.</p>
+</div>
+</div>
+<!-- Episode Card 3 -->
+<div class="glass-panel rounded-xl p-4 flex gap-6 hover:bg-surface-bright/50 transition-colors cursor-pointer group">
+<div class="w-48 aspect-video rounded-lg overflow-hidden relative shrink-0">
+<img alt="Episode 3 Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An expansive view of an Earth-like planet seen from orbit, but the planet's surface is cracked, revealing a glowing, molten core of bright cyan energy. The surrounding space is a deep, starry navy blue. In the foreground, the silhouette of a massive, ruined space station drifts slowly. The visual tone is somber and majestic, matching the high-fidelity, immersive cinematic aesthetic of the surrounding UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDNFipMtj4fNzdAq-nqItHj2Otph5L7RluFhDVkcP6axXBR0oF8iJ-fFTXJ4btAaNYQjE_om1aMvHesI_caDjIayP16OIdYewgvEOSkdVZBO7RZKwMOuEeumA4GG68ljniAbWclRkr46EuCQTrwWGdtDCwFWWRaG8rYWnCKxr6zNfy_5SuJgVR75POaorMDnrb7HAOeHwMRlP3QZZDDSapizru5i1Hz3Iz-4ERuc8b5StQyR-jbib9R79DCtH-gSLhMU4Lom9-SdI"/>
+<div class="absolute bottom-2 right-2 bg-subtle-magenta px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wider">New</div>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 text-white">
+<span class="material-symbols-outlined text-[28px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="flex-1 py-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-label-sm text-label-sm text-on-surface-variant mb-1">Episode 3</div>
+</div>
+<h4 class="font-headline-md text-[18px] text-white mb-2 group-hover:text-electric-cyan transition-colors">Convergence Point</h4>
+<p class="font-body-md text-[14px] text-on-surface-variant line-clamp-2">The team reaches the coordinates of the Origin Point, only to find it guarded by entities beyond human comprehension.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Side Column (Details & Characters) -->
+<div class="space-y-8">
+<!-- Info Panel -->
+<div class="glass-panel rounded-xl p-6">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant mb-4 uppercase tracking-widest border-b border-white/5 pb-2">Information</h4>
+<dl class="space-y-3 font-metadata text-[14px]">
+<div class="flex justify-between">
+<dt class="text-on-surface-variant">Format</dt>
+<dd class="text-white text-right">TV</dd>
+</div>
+<div class="flex justify-between">
+<dt class="text-on-surface-variant">Episodes</dt>
+<dd class="text-white text-right">12</dd>
+</div>
+<div class="flex justify-between">
+<dt class="text-on-surface-variant">Status</dt>
+<dd class="text-electric-cyan text-right">Currently Airing</dd>
+</div>
+<div class="flex justify-between">
+<dt class="text-on-surface-variant">Season</dt>
+<dd class="text-white text-right">Fall 2024</dd>
+</div>
+<div class="flex justify-between">
+<dt class="text-on-surface-variant">Studio</dt>
+<dd class="text-white text-right">MAPPA</dd>
+</div>
+<div class="flex justify-between">
+<dt class="text-on-surface-variant">Source</dt>
+<dd class="text-white text-right">Light Novel</dd>
+</div>
+</dl>
+</div>
+<!-- Characters Panel (Bento Style) -->
+<div>
+<h4 class="font-headline-md text-[20px] text-white mb-4">Main Cast</h4>
+<div class="grid grid-cols-2 gap-4">
+<!-- Character 1 -->
+<div class="relative aspect-square rounded-xl overflow-hidden group cursor-pointer border border-white/5 card-hover">
+<img alt="Elara Character Portrait" class="w-full h-full object-cover" data-alt="A high-quality anime character portrait of a young woman with silver hair and intense, glowing cyan eyes. She is wearing a dark, high-collar tactical suit with subtle geometric violet accents. The background is a soft, blurred bokeh of deep indigo and dark navy lights. The portrait is framed tightly on her face and shoulders, conveying a sense of determination and melancholy. The lighting highlights the cinematic, premium feel of the AniTech OS design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY400znI_KworJ_QDS7zND27pr7Kcgw5SznrPltxSB1_HVAlqPSh8mFgUs9Nv2-ciA2L5K0yIh9vJ0SMnGnPHXddtOdXfWpN7dLIBRaYjviOgOYEUIM-tG3VfbNGE7kyeFbvLt8RJJ9nOzX5JMhL18HJDUid7KLDb_W5q5pvGnbwDORgTvjZGdJRNiqlxtvH92szpy5xpI8expx_saYOrbrFKgqrkk4J007MhmUTzm51L8o7gihm8IaIg0VOG7iW-CQCRbMNPg9Jk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent flex flex-col justify-end p-3 opacity-90 group-hover:opacity-100 transition-opacity">
+<div class="font-headline-md text-[14px] text-white leading-tight">Elara Vance</div>
+<div class="font-metadata text-[10px] text-on-surface-variant mt-1">VA: Saori Hayami</div>
+</div>
+</div>
+<!-- Character 2 -->
+<div class="relative aspect-square rounded-xl overflow-hidden group cursor-pointer border border-white/5 card-hover">
+<img alt="Kael Character Portrait" class="w-full h-full object-cover" data-alt="An anime character portrait of a young man with messy black hair and a stern expression. He wears a heavy, worn leather coat over modern, dark tactical gear. The lighting casts dramatic, moody shadows across half his face, while a subtle, soft violet light rim-lights his profile. The background is a dark, abstract void, matching the overarching glassmorphism and deep slate aesthetic of the UI environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzsbgmRfFSeUobhdZa7W4Oc3poK_VwSxUNcXidD7S7UfaH2RR6N26IzW39zsjoVHgfLlDq91JFFSnYvOZqs6gWwDDDHkCm7ymsQGdUQycqRgmecSvwiYGIflC619zP-LEZgcZLVP5GLBXHt6kVOGPzxk0u7NIQ-ncpCRX8kuQZIOhNhwJB5WOTS1j5CQf6YTf6AmaZvGC-GDeJheeZKvy0gBbC_Ew_qNGjXvG6Jk4w73Hj37n6PwvtgqemvJCeRF-LNTGEOss7mSw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent flex flex-col justify-end p-3 opacity-90 group-hover:opacity-100 transition-opacity">
+<div class="font-headline-md text-[14px] text-white leading-tight">Kael Thorne</div>
+<div class="font-metadata text-[10px] text-on-surface-variant mt-1">VA: Yuichi Nakamura</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple script to handle scroll effects for TopAppBar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-surface/80');
+                header.classList.remove('bg-surface/40');
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('bg-surface/80');
+                header.classList.add('bg-surface/40');
+                header.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body></html>

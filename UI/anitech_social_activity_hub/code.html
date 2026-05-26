@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AniTech OS - Community</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#d5e3fd",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "on-surface-variant": "#c6c6cd",
+                        "surface": "#081425",
+                        "primary-container": "#0f172a",
+                        "surface-variant": "#2a3548",
+                        "outline-variant": "#45464d",
+                        "on-secondary-container": "#abb9d2",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "outline": "#909097",
+                        "subtle-magenta": "#D946EF",
+                        "tertiary": "#2fd9f4",
+                        "pale-gold": "#FDE68A",
+                        "on-tertiary-container": "#008ea1",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-primary-container": "#798098",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "surface-container-lowest": "#040e1f",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container": "#152031",
+                        "background": "#081425",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "tertiary-container": "#001b20",
+                        "azure-blue": "#3B82F6",
+                        "surface-bright": "#2f3a4c",
+                        "soft-violet": "#A78BFA",
+                        "on-surface": "#d8e3fb",
+                        "tertiary-fixed": "#a2eeff",
+                        "secondary-container": "#3c4a5e",
+                        "inverse-on-surface": "#263143",
+                        "on-primary": "#283044",
+                        "tertiary-fixed-dim": "#2fd9f4",
+                        "secondary": "#b9c7e0",
+                        "electric-cyan": "#22D3EE",
+                        "primary": "#bec6e0",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d8e3fb",
+                        "inverse-surface": "#d8e3fb",
+                        "surface-tint": "#bec6e0",
+                        "surface-container-highest": "#2a3548",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary": "#233144",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#111c2d",
+                        "deep-indigo": "#312E81",
+                        "on-tertiary": "#00363e",
+                        "muted-charcoal": "#0F172A",
+                        "surface-container-high": "#1f2a3c",
+                        "on-tertiary-fixed": "#001f25",
+                        "surface-dim": "#081425",
+                        "on-error": "#690005",
+                        "inverse-primary": "#565e74",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar-collapsed": "80px",
+                        "content-margin": "40px",
+                        "sidebar-width": "260px",
+                        "gutter": "24px",
+                        "grid-unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "display-xl-mobile": ["Sora"],
+                        "metadata": ["Hanken Grotesk"],
+                        "display-xl": ["Sora"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-xl-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "metadata": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "display-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glass-panel { background: rgba(17, 28, 45, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); }
+        .glass-card { background: rgba(42, 53, 72, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.02); transition: all 0.3s ease; }
+        .glass-card:hover { transform: translateY(-2px) scale(1.02); background: rgba(42, 53, 72, 0.6); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.1); }
+        
+        /* Thin elegant scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased">
+<!-- SideNavBar (Desktop & Tablet) -->
+<nav class="hidden md:flex flex-col h-full py-gutter z-40 fixed left-0 h-full w-sidebar-width bg-surface-container-low/80 backdrop-blur-2xl border-r border-white/5 shadow-sm transition-all duration-300 md:w-sidebar-collapsed lg:w-sidebar-width group">
+<div class="px-gutter mb-8 flex items-center gap-4 lg:group-hover:px-gutter md:px-0 md:justify-center lg:justify-start">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-azure-blue to-soft-violet flex items-center justify-center flex-shrink-0">
+<span class="font-headline-md text-headline-md font-bold text-white leading-none">A</span>
+</div>
+<div class="hidden lg:block lg:group-hover:block whitespace-nowrap overflow-hidden opacity-0 lg:opacity-100 transition-opacity duration-300 delay-100">
+<h1 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">AniTech OS</h1>
+<p class="font-metadata text-metadata text-on-surface-variant">Media Immersion</p>
+</div>
+</div>
+<div class="px-gutter mb-6 hidden lg:block lg:group-hover:block opacity-0 lg:opacity-100 transition-opacity duration-300">
+<button class="w-full flex items-center justify-between bg-surface-container-highest/50 hover:bg-surface-container-highest border border-white/5 rounded-lg px-3 py-2 text-on-surface-variant font-metadata text-metadata transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">search</span>
+<span>Search</span>
+</div>
+<span class="font-label-sm text-label-sm opacity-50">⌘+K</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto px-4 py-2 space-y-1">
+<!-- Nav Items -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-primary-container/50 hover:text-primary transition-all duration-300 group/item" href="#">
+<span class="material-symbols-outlined group-hover/item:scale-110 transition-transform">grid_view</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase hidden lg:block md:hidden">Home</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-primary-container/50 hover:text-primary transition-all duration-300 group/item" href="#">
+<span class="material-symbols-outlined group-hover/item:scale-110 transition-transform">video_library</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase hidden lg:block md:hidden">Library</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-primary-container/50 hover:text-primary transition-all duration-300 group/item" href="#">
+<span class="material-symbols-outlined group-hover/item:scale-110 transition-transform">explore</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase hidden lg:block md:hidden">Discover</span>
+</a>
+<!-- Active Tab: Community -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-soft-violet/10 text-soft-violet border-r-2 border-soft-violet transition-all duration-300 translate-x-1 group/item" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase hidden lg:block md:hidden font-bold">Community</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-primary-container/50 hover:text-primary transition-all duration-300 group/item" href="#">
+<span class="material-symbols-outlined group-hover/item:scale-110 transition-transform">terminal</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase hidden lg:block md:hidden">Command Center</span>
+</a>
+</div>
+<div class="mt-auto px-4 py-4 space-y-1 border-t border-white/5">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-primary-container/50 hover:text-primary transition-all duration-300 group/item" href="#">
+<span class="material-symbols-outlined group-hover/item:scale-110 transition-transform">help</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase hidden lg:block md:hidden">Help</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-error/10 hover:text-error transition-all duration-300 group/item" href="#">
+<span class="material-symbols-outlined group-hover/item:scale-110 transition-transform">logout</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase hidden lg:block md:hidden">Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopAppBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center px-gutter py-4 z-50 fixed top-0 w-full bg-surface/60 backdrop-blur-xl border-b border-white/5 shadow-2xl">
+<div class="font-headline-md text-headline-md font-bold text-azure-blue">AniTech OS</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary hover:bg-white/10 transition-colors rounded-full p-2 cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-primary hover:bg-white/10 transition-colors rounded-full p-2 cursor-pointer">settings</span>
+<span class="material-symbols-outlined text-primary hover:bg-white/10 transition-colors rounded-full p-2 cursor-pointer">person</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-[80px] lg:ml-[260px] h-full overflow-hidden relative w-full pt-20 md:pt-0 pb-20 md:pb-0">
+<!-- Ambient Background Effect -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-soft-violet via-surface to-background"></div>
+<div class="flex-1 overflow-y-auto px-4 md:px-content-margin py-8 z-10 w-full flex flex-col xl:flex-row gap-gutter">
+<!-- Left/Center Column: Hero + Feed -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- Hero: Live Watch Parties -->
+<section class="mb-10">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface flex items-center gap-3">
+<span class="material-symbols-outlined text-azure-blue" style="font-variation-settings: 'FILL' 1;">live_tv</span>
+                            Live Watch Parties
+                        </h2>
+<button class="font-metadata text-metadata text-soft-violet hover:text-white transition-colors flex items-center gap-1">
+                            View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
+<!-- Party Card 1 -->
+<div class="glass-card rounded-xl overflow-hidden relative group h-48 flex flex-col justify-end p-5">
+<img alt="Anime screenshot" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-500 z-0" data-alt="A high-quality, cinematic still from a sci-fi anime featuring a neon-lit cyberpunk cityscape at night. The scene is illuminated by glowing blue and pink holograms, reflecting off wet metallic surfaces in a deep navy environment. The aesthetic is highly detailed, atmospheric, and premium, matching the dark mode AniTech OS style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuUPmpz50Fg6gtezxR08d4lkS4jgaP5P9LgXoXfi-9qs5kkfm-ZiFMcDQ2CoBGOCLP2rVnVq47KssM8o0Uio3kRx2h6mUD8y3BXS5zTdxoqB8W2C8TKlecqkkBmTKKCXI2I3p2pU3tLxVz7bFLgjjnmcIduYr3TYkUpC9W7ysrqAxZwaWZk2IvIa53JV863rJJaRzCTilpj_0x_6_VDuDIQ1gRJzvE3MGFA8H7ERPh1xgmqtKuDXwbK6FJCtzPzVJu7zwAxkrcIrw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent z-10"></div>
+<div class="relative z-20 w-full">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-error/20 text-error border border-error/30 font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 backdrop-blur-md">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> LIVE
+                                    </span>
+<div class="flex -space-x-2">
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYbw-SKMlCzKjXb6mLP54fJ4ToTLu6ptDxMZx0GWmyjV-moHFoJL-qc0y6g0Q3SsaChEdT87-gN-fLTUPgzSOtGa3e65NPJCek6RriZ6kTGasU6cZuZFa5HQqrTSc1pQAYqJmwlKitcq6H4yL8MVlH3C8oiyh_2uRz6RmYr9-sTBcEVSQSMEstPx8gZ5Iqlkm9dlJpZxjxlxfF31WnmRLqIdSEoOu0ipkcacB108EZioYF0BEE1G1Jda4I4eGLMc-R20zxc6hdT_4"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIJ4FRGfnHHFPJBRATvjgdKIDBFaWi-6dAaNk2oE0IzdPsP9nJPjInhbDnBnjsoXiFG0Nlc-q1OEqr_bDfg4H11Zi3K5El-X7F8xoaW8r5fic2BX6bkFzfEOudOkGY0XJL_sS_h6lADqoYJRDY_Ch2BuEulGiwnNkQIk39TAkpHy9Q-UyUJ3WHCaIg-HWHiBq-gk05ZEGB9i0bwoodogXFNR1kBHzYxraIh8XMxRvUHejxWSpuoehSBJ61zJJ98b0i5bDMBoKrjtg"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgwak4KL63xLhazje8fkTblZSCyEFiITP0UuZEOuBnjLWVPCF5LLmERcOWc45Tiyq-U_wz32AovjSw38x5dbs7RFjpwzuCHgmUTRPw9LPpNanJisYotax6Y7E3mXSDqtKYw8yUshvvScW_oILKztUALPAhFboyvCj7ccCheoUWYtDtmPm9OZC5yKQTUw3qbIoIh7i02jGbZuwUzYqZygsf0Q0rkPWU7yAx8HGNPKBL6LsyAW-Kt8CO1v_GdJ8WFvpmhohjT_SCJtw"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-variant flex items-center justify-center font-label-sm text-[10px] text-on-surface-variant">+12</div>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-white font-bold leading-tight truncate">Neon Genesis: End</h3>
+<p class="font-metadata text-metadata text-on-surface-variant mb-4 truncate">Ep 24 - Hosted by @Kaito</p>
+<button class="w-full bg-gradient-to-r from-azure-blue to-tertiary text-surface font-metadata text-metadata font-bold py-2 rounded-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                                    Join Session
+                                </button>
+</div>
+</div>
+<!-- Party Card 2 -->
+<div class="glass-card rounded-xl overflow-hidden relative group h-48 flex flex-col justify-end p-5">
+<img alt="Anime screenshot" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-500 z-0" data-alt="A serene, high-fidelity fantasy anime landscape featuring floating islands and cascading waterfalls under a starlit sky. Soft bioluminescent flora glows in subtle magenta and cyan tones against a deep indigo backdrop. The lighting is cinematic, ethereal, and perfectly aligned with a premium, glassmorphic dark UI environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-VhsosULWPrYflseeT-J-UWHAA0Jde5j2Zdt_LCHws7A9cyxeG1rJAG4mwlJHbowPn_9Fr1yiLJMO2XEKIYO6vUNSgaF43ne0GbOL4M75dXqZMeaY2yAPFE3uhD4lHIzYU73BGDSGUs8TejUHm2DMRR3WPqlQJvBNlQppXbne-hDmKyt1XZqwqteg1o0W7njkD_GwI8IAgBuNIL8SJzlzKy7WWe4bExii4YIdjvSb1saYO7RK9R99c3cGrfFmRraVQEpfJtZmis8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent z-10"></div>
+<div class="relative z-20 w-full">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-error/20 text-error border border-error/30 font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 backdrop-blur-md">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> LIVE
+                                    </span>
+<div class="flex -space-x-2">
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9I4VgloSbooIgeA9S11JoSkZE4x7HkVy-aiFosLKBZCksaMTc8pEI2FTy3XMDbS4u1WjtzXY8HrwRR7OE3U0LHIXYxwVSlQNpy1Uv_Od8AA7oczVlXKbwqW0kcsfW0k1PYQzCWWiLpa13VmkVn8v47kSy-3nD-RKh9Mcffcuq2JmK1-qwCDHJt1q6KvYZUVWv5OJ_T2Xnh5YDkxl8L8mMlZcq1qyXzXp-a7onSIFgTyzmh4x21mG74-LFk-DbCwHUJjSax8ym_tM"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd3WsMSwtktu_vTA04KDAUV5qPzaiTr24RGbzFfXMfDoSD2B73VuqQccYSnLtb9MLdzBd7kxirPwdtilcBxBWVzHSIGD6-HfqHD833gt7hxL-NyC-yf-MsvnBK_0NpNgt1_ZWC7gmCdjhtnykJ3aIRGt7eCwjWqjFa8tsurL37XQQtZfrOo0FcJC5-hThUbWiVyKY1nsUsLDcrbZPZVPxc631yd4bzWPVmoIx3Ap2-ElB8MV4-mgROzd-3lsvi_ZTibGzJLljkxTI"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-variant flex items-center justify-center font-label-sm text-[10px] text-on-surface-variant">+4</div>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-white font-bold leading-tight truncate">Frieren Journey</h3>
+<p class="font-metadata text-metadata text-on-surface-variant mb-4 truncate">Ep 10 - Hosted by @Elara</p>
+<button class="w-full bg-gradient-to-r from-azure-blue to-tertiary text-surface font-metadata text-metadata font-bold py-2 rounded-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                                    Join Session
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Activity Feed -->
+<section class="flex-1 pb-10">
+<div class="flex items-center gap-4 mb-6 border-b border-white/5 pb-4">
+<button class="font-metadata text-metadata text-white font-bold border-b-2 border-soft-violet pb-4 -mb-[17px]">Friend Activity</button>
+<button class="font-metadata text-metadata text-on-surface-variant hover:text-white transition-colors pb-4 -mb-[17px]">Global Trending</button>
+</div>
+<div class="space-y-4">
+<!-- Feed Item 1 -->
+<div class="glass-panel rounded-xl p-5 flex gap-5">
+<div class="flex-shrink-0 relative">
+<img alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-surface-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd_lSjhowyAyvFOJSsHw0xKJMQRUYKhu_1HZaS8Ky-HhHhNUf63VyMd6cFPYbtmABMGkeaMTIXHtlHccXuDDGdWKG9MsDLhirFl3rCR69FKrlpw5lPtFD57L1tppMRozgNaNNpRSjmyr8Hv6qtyAcL6oMOFjmD9nOwLYXf5nRP_eszIdK10TIrFnBy0ENs_3zbN23GuH1QhC1IuFaD1iZHCxNBAv9-LwPu4MLqOA6h_piTl3zoyU5wx8SpVAv9uxnZKYIcRL4Cvjs"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-tertiary rounded-full border-2 border-surface"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between mb-1">
+<h4 class="font-metadata text-metadata text-white"><span class="font-bold">@JinSakai</span> completed an episode</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<div class="glass-card rounded-lg p-3 mt-3 flex gap-4 items-center">
+<img alt="Anime Poster" class="w-16 h-24 object-cover rounded-md shadow-md" data-alt="A striking portrait of an anime character with glowing samurai armor standing in a dark, rain-slicked alleyway. The scene features deep indigo shadows contrasting with vibrant cyan neon reflections, creating a moody, high-end cinematic feel. The visual style is crisp and modern, fitting perfectly within a dark-mode glassmorphic UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmaidYowBLJDOHbHwUoKLrAmU0FROoo-zuubKPGxDQoSRs87VAMrD45QspzAGIoLRHUT1N40XI1aDE4lEUZjlBPdc26CP-a4gTCEjPEZeKBqI4pv4PYNrsG-6Mvg40mXdIaqq-5iLlEyCvFdysl9k3plpzNL_C1PFfmdpnO6LMH7IsNPTiLWTXOSn6ycLYuPq_9AvpKH5wCHag97zdu8qWTN9qsldR4hMAuOsdDvO9Lnq18oVObxLKbIVknQEKSTqBjulO59Ov42k"/>
+<div class="flex-1">
+<h5 class="font-headline-md text-body-lg font-bold text-on-surface">Jujutsu Kaisen Season 2</h5>
+<p class="font-metadata text-metadata text-on-surface-variant">Episode 17: Thunderclap</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-pale-gold text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm text-white">Rated 10/10</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-soft-violet transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span class="font-label-sm text-label-sm">24</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-azure-blue transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+<span class="font-label-sm text-label-sm">3</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Feed Item 2 -->
+<div class="glass-panel rounded-xl p-5 flex gap-5">
+<div class="flex-shrink-0 relative">
+<img alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-surface-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuZJcpicKFE8dIin2Fr-xX9nefVXR3rGuD_FAkqifU2vrrB3ZzLiWYI5TXdPzwDfETNqB9NgwVRxWO7aFgcSv0TZKl_-aEMuez_FO8GIdcUQxNzk1ql0OpLf1iOxTelYgKe1R6-BsAlLAEtem3QXjIy8nkTshwgbhbMIbvW-3fpbr6588YZuaAK3kaZbKKrgaqKSDiDmkssbo-4pw1ai4T95aVs_Ltp7g4sJ5I1jEW6QGW0S76JlRvBC9DohPdpFCN_WAmqYSvHIg"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-azure-blue rounded-full border-2 border-surface"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between mb-1">
+<h4 class="font-metadata text-metadata text-white"><span class="font-bold">@Maya_T</span> added to watchlist</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5h ago</span>
+</div>
+<div class="glass-card rounded-lg p-3 mt-3 flex gap-4 items-center">
+<img alt="Anime Poster" class="w-16 h-24 object-cover rounded-md shadow-md" data-alt="An atmospheric, highly detailed anime illustration of a futuristic mecha suit silhouetted against a setting sun. The sky transitions from deep navy to soft magenta and fiery gold, creating a rich tonal depth. The artwork is premium, cinematic, and sits elegantly within a sleek, dark-themed interface context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU9T10TuMd3l1--LokRMnkzqb2t7jcWXX5VLDbuz94qEBsd1CPlEf2jFEIqSOZl-CSl39F7HmTUXXtpqUo1ApWcxB0hVjKdkPx9-jdOYP_b8hLbSfURTkFBpYBiHKPaRRETnV0hkIp8AGUoBVVyosURPSCrpJmBFkxySxVwjgel6E7HBZnR9S0Niz98KuJpojez1P3o-nDkLQCtqgaVs_2TMH6DjMlfK6HxiRtP7wlRkY2dAP7SiLNGm6-rhyLdULHLye4oVtR2y4"/>
+<div class="flex-1">
+<h5 class="font-headline-md text-body-lg font-bold text-on-surface">86 EIGHTY-SIX</h5>
+<div class="mt-2 flex gap-2">
+<span class="bg-surface-container/80 text-on-surface-variant font-label-sm text-[10px] px-2 py-1 rounded-xl">Mecha</span>
+<span class="bg-surface-container/80 text-on-surface-variant font-label-sm text-[10px] px-2 py-1 rounded-xl">Drama</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Context Panel (Desktop Only) -->
+<aside class="hidden xl:flex w-80 flex-col gap-6 shrink-0">
+<!-- Active Friends -->
+<div class="glass-panel rounded-2xl p-5 border border-white/5">
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface mb-4">Online Friends</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between group cursor-pointer p-2 rounded-lg hover:bg-white/5 transition-colors -mx-2">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Friend" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7UPy8qhaweMfZFecsocAKfj_4swXEBZK1-13Ll1EOdcLkYJdCVGOcmsKbyhMb5eQ1DsJIYGkKAFubYxzl9_17_zN9eku8EgGZlxq4xHuTaQACV-iTJUd89Xr7F18ngq2H2r5VyDVuODBT9NAXzqM_HYe0PIa8b1lGiOXnP9XltBQ_vncs9wZIWoMJnXSfAb0T1nZ1xIbk71hGonWboRvyj2kbtoWhs2aR_9cdyITOeWfUz3r1Y4zvk-kPS-Nvt7HqyGjrHUkTpTE"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-tertiary rounded-full border-2 border-surface"></div>
+</div>
+<div>
+<p class="font-metadata text-metadata text-white">JinSakai</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate w-32">Watching JJK S2</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chat</span>
+</div>
+<div class="flex items-center justify-between group cursor-pointer p-2 rounded-lg hover:bg-white/5 transition-colors -mx-2">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Friend" class="w-10 h-10 rounded-full opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIjCI4lzBsO7Gq8QI-jNxtAHjE9ggrbAj2dGrG7UakgfkaPVdwwH9m4ODx4CyMQ6NWu15l04IflVuJtuvEHyp2OUbq-Ji2T6FltVQIfQUDzYMz_gN5-rc6ZTX_2Pzp1mMNSV3VBal5hwA8_C1NGmMPoU58DVebEgSaeoJI2xBCumFFm68qELUakVrkfJxImNYaBqtVNwftLdAOzpGXGOV82U-upXyJZEQ6Bq6YnOKGwUeKrY9h8FXUkounfefTe0vA4KGQRsMuS9s"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-pale-gold rounded-full border-2 border-surface"></div>
+</div>
+<div>
+<p class="font-metadata text-metadata text-white opacity-80">Elara</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Idle for 20m</p>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 font-label-sm text-label-sm text-soft-violet border border-soft-violet/30 rounded-lg hover:bg-soft-violet/10 transition-colors">
+                        View All Friends
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full rounded-t-xl md:hidden bg-surface-container-highest/90 backdrop-blur-lg border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-50 flex justify-around items-center px-4 pb-4 pt-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-bright rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-bright rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined mb-1">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-azure-blue/20 text-azure-blue rounded-xl px-4 py-1 scale-110 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm font-bold">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-bright rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>

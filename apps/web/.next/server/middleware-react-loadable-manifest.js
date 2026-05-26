@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST='{"app\\\\player\\\\[animeId]\\\\[episodeId]\\\\page.tsx -> hls.js":{"id":3608,"files":["static/chunks/f0ee454b.3c6225966e313fd4.js"]}}';
